@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Register
+{% endblock title %}
+
+
+
+
+{% block content %}
+{% include 'nav.html' %}
+<form class='register-form' method="post">
+    <h1>Register</h1>
+    {% csrf_token %}
+    {{form.first_name}}
+    {{form.last_name}}
+    {{form.username}}
+    {{form.username.errors}}
+    {{form.email}}
+    {{form.email.errors}}
+    {{form.password1}}
+    {{form.password1.errors}}
+    {{form.password2}}
+    {{form.password2.errors}}
+    <button type='submit'>Register</button>
+</form>
+  
+  
+
+
+
+
+{% endblock content %}
