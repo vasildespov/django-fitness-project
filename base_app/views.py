@@ -1,9 +1,9 @@
 from base_app.forms import LoginForm, RegisterForm
 from django.shortcuts import redirect
 from django.views.generic import TemplateView
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import CreateView
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class HomePageView(TemplateView):
     template_name = "index.html"
@@ -24,3 +24,6 @@ class LoginPageView(LoginView):
     template_name = "login.html"
     authentication_form = LoginForm
     redirect_authenticated_user = True
+
+class LogoutPageView(LoginRequiredMixin, LogoutView):
+    pass
