@@ -7,10 +7,17 @@ Login
 
 
 
+
 {% block content %}
 {% include 'nav.html' %}
 
 
+
+
+
+    
+
+    
 <form class='register-form' method="post" action="">
     <h1>Login</h1>
     {% csrf_token %}
@@ -20,5 +27,6 @@ Login
     {{form.password.errors}}
     <button type='submit'>Login</button>
 </form>
+
 
 {% endblock content %}

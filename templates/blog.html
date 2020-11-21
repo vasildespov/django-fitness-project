@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Blog
+{% endblock title %}
+
+
+{% block content %}
+{% include 'nav.html' %}
+<div class="blogs-container">
+  <h1>Blog Section</h1>
+  {% if object_list %}
+  {% for object in object_list%}
+
+  <div class="blog-card">
+    <!-- Like and Save here -->
+
+    {% if user.is_authenticated %}
+
+    {% if object.title in titles %}
+    <form action="{% url 'like article' object.pk%}" method="POST">
+      {% csrf_token %}
+      <button class='like-button' type="submit" name="article_pk" value="{{object.pk}}">
+        <a style="color:red;"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>
+      </button>
+    </form>
+    {% else %}
+    <form action="{% url 'like article' object.pk %}" method="POST">
+      {% csrf_token %}
+      <button class='like-button' type="submit" name="article_pk" value="{{object.pk}}">
+        <a><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>
+      </button>
+    </form>
+    {% endif %}
+    
+    {% if user == object.author or user.is_superuser%}
+    <form action="{% url 'article edit' object.pk object.slug %}" method="get">
+      <button class='like-button' >
+        <a><i class="fa fa-edit "></i></a> 
+      </button>
+    </form>
+    <form action="{% url 'article delete' object.pk %}" method="post">
+      {% csrf_token %}
+      <button class='like-button'>
+        <a><i class="fa fa-trash" aria-hidden="true"></i>
+        </a>
+      </button>
+    </form>
+    {% endif %}
+      
+    {% endif %}
+    <a class='read-article' href="{% url 'article detail' object.pk object.slug %}">Read Full Article</a>
+    <figure><img src="{{object.cover.url}}" alt="Your Blog Title" /></figure>
+    <div class="blog-content">
+      <h3 class="blog-title">{{object.title}}</h3>
+      <div class="blog-subtitle">{{object.subtitle}}</div>
+      <div class="blog-footer">Created by {{object.author}} | {{object.datepublished}} | {{object.category}}</div>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <h2 class='no-articles'>There are currently no articles.<br><a
+      href="{% url 'create article' %}">Click here</a> to create the first one!</h2>
+  {% endif %}
+</div>
+{% if is_paginated %}
+<div class="pagination">
+  <span class="page-links">
+    {% if page_obj.has_previous %}
+    <a href="/blog?page={{ page_obj.previous_page_number }}">Previous Page</a>
+    {% endif %}
+    <span class="page-current">
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+    {% if page_obj.has_next %}
+    <a href="/blog?page={{ page_obj.next_page_number }}">Next Page</a>
+    {% endif %}
+  </span>
+</div>
+{% endif %}
+
+{% endblock content %}

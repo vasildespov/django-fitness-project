@@ -1,50 +1,46 @@
 <section class="navigation">
-    <div class="nav-container">
-      <div class="brand">
-        <img class='brand-img' style="height:60px; margin-bottom:5px;" src="/static/images/navigation_bar_logo.jpg"
-          alt="">
-        <!-- <a href="/">Title</a> -->
+  <div class="nav-container">
+      <img class='brand-img' src="/static/images/navigation_bar_logo.jpg">
+    <nav>
+      <div class="nav-mobile">
+        <a id="nav-toggle" href="#!"><span></span></a>
       </div>
-      <nav>
-        <div class="nav-mobile">
-          <a id="nav-toggle" href="#!"><span></span></a>
-        </div>
-        <ul class="nav-list">
-  
-          {% if user.is_authenticated %}
-  
-          <li><a href="">My Profile</a></li>
-          <li><a href="">Create an article</a></li>
-          <li><a href="/">Home</a></li>
-          <li><a href="">Blog</a></li>
-          <li><a href="#">Features</a>
-            <ul class="nav-dropdown">
-  
-              <li><a href="#">Calorie Calculator</a></li>
-              <li><a href="#">Workout Templates</a></li>
-            </ul>
-          </li>
-  
-          <li><a href="{% url 'logout' %}">Logout</a></li>
-          {% else %}
-          <li><a href="/">Home</a></li>
-          <li><a href="">Blog</a></li>
-          <li><a href="#">Features</a>
-            <ul class="nav-dropdown">
-  
-              <li><a href="#">Calorie Calculator</a></li>
-              <li><a href="#">Workout Templates</a></li>
-            </ul>
-          </li>
-          <li><a href="{% url 'login' %}">Login</a></li>
-          <li><a href="{% url 'register' %}">Register</a></li>
-          {% endif %}
-  
-          {% if user.is_superuser %}
-          <li><a href="/admin/">Admin Panel</a></li>
-          {% endif %}
-  
-        </ul>
-      </nav>
-    </div>
-  </section>
+      <ul class="nav-list">
+
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'blog' %}">Blog</a></li>
+        <li><a href="{% url 'create article' %}">Create an article</a></li>
+        
+        
+        <li><a href="#">Features</a>
+          <ul class="nav-dropdown">
+            <li><a href="#">Calorie Calculator</a></li>
+            <li><a href="#">Workout Templates</a></li>
+          </ul>
+        </li>
+        
+        <li><a href="{% url 'profile page' user %}">My Profile</a></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'blog' %}">Blog</a></li>
+        <li><a href="#">Features</a>
+          <ul class="nav-dropdown">
+
+            <li><a href="#">Calorie Calculator</a></li>
+            <li><a href="#">Workout Templates</a></li>
+          </ul>
+        </li>
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'register' %}">Register</a></li>
+        {% endif %}
+
+        {% if user.is_superuser %}
+        <li><a href="/admin/">Admin Panel</a></li>
+        {% endif %}
+
+      </ul>
+    </nav>
+  </div>
+</section>

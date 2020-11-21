@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 from os import path
+from django.urls import reverse_lazy
 import environ
 env = environ.Env()
 environ.Env.read_env()
@@ -27,10 +28,10 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
-LOGOUT_REDIRECT_URL = LOGIN_REDIRECT_URL = 'home'
-LOGIN_URL = '/login/'
+LOGOUT_REDIRECT_URL = LOGIN_REDIRECT_URL = reverse_lazy('home')
+LOGIN_URL = reverse_lazy('login')
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'base_app'
+    'base_app',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [

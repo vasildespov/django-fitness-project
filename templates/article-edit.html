@@ -2,7 +2,7 @@
 
 
 {% block title %}
-Create an article
+Edit an article
 {% endblock title %}
 
 
@@ -11,17 +11,17 @@ Create an article
 
 
 
-<form action="{% url 'create article' %}" class='create-form' method="post" enctype="multipart/form-data">
-    <h1>Create an Article</h1>
+<form action="{% url 'article edit' object.pk object.slug %}" class='create-form' method="post" enctype="multipart/form-data">
+    <h1>Edit Article</h1>
     {{form.title.errors}}
     {% csrf_token %}
-    {{form.media}}
+    {{form.media}}  
     {{form.title}}
     {{form.subtitle}}
     {{form.category}}
     {{form.cover}}
     {{form.content}}
-    <button type="submit">Create</button>
+    <button type="submit">Edit</button>
 </form>
 
 

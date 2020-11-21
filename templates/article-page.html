@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    {{object.title}}
+{% endblock title %}
+    
+
+
+{% block content %}
+
+{% include 'nav.html' %}
+<div class="article-details">
+    {{object.title|safe}}
+    {{object.content|safe}}
+</div>
+{% endblock content %}

@@ -1,3 +1,4 @@
+from base_app.models import Article
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -118,3 +119,25 @@ class LoginForm(AuthenticationForm):
             if self.user_cache is None:
                 raise ValidationError("- Invalid Password")
             return password
+
+
+class CreateArticleForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        exclude = ["author", "date", "slug"]
+        widgets = {
+            "title": forms.TextInput(
+                attrs={
+                    "placeholder": "Title",
+                }
+            ),
+            "subtitle": forms.TextInput(attrs={"placeholder": "Subtitle"}),
+            "category": forms.TextInput(attrs={"placeholder": "Category"}),
+            "cover": forms.FileInput(attrs={"placeholder": ""}),
+        }
+        labels = {
+            "title": "",
+            "subtitle": "",
+            "category": "",
+            "content": "",
+        }

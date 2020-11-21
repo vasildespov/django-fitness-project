@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{object.username}}'s Profile
+{% endblock title %}
+
+
+{% block content %}
+{% include 'nav.html' %}
+<h1 class="profile-h1">{{object.username}}'s Profile</h1>
+<div class='profile-wrapper'>
+
+    <div>
+        <h1 style=>Liked Articles</h1>
+        <ul>
+
+
+            {% if liked %}
+            {% for like in liked %}
+            <a href="{% url 'article detail' like.article.pk like.article.slug %}">{{like.article.title}}</a>
+            {% endfor %}
+            {% else %}
+            <span class='no-likes'>You haven't liked any articles.</span>
+            
+            {% endif %}
+
+
+
+        </ul>
+    </div>
+
+
+    <div>
+        <h1>Created Articles</h1>
+        <ul>
+            
+            {% if created %}
+            {% for creation in created %}
+            <a href="{% url 'article detail' creation.pk creation.slug %}">{{creation.title}}</a>
+            {% endfor %}
+            
+            {% else %}
+            <span class='no-likes'>You haven't created any articles.</span>
+            {% endif %}
+                
+        </ul>
+    </div>
+
+</div>
+
+{% endblock content %}
