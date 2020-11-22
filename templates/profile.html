@@ -7,7 +7,16 @@
 
 {% block content %}
 {% include 'nav.html' %}
-<h1 class="profile-h1">{{object.username}}'s Profile</h1>
+
+<h1 class="profile-h1">{{object.username}}'s Profile ({{object.first_name}} {{object.last_name}})
+    <form action="{% url 'profile edit' user %}" method="get">
+        <button class='like-button profile'>
+          <a><i class="fa fa-edit "></i></a> 
+        </button>
+    </form>
+</h1>
+
+
 <div class='profile-wrapper'>
 
     <div>
@@ -21,7 +30,7 @@
             {% endfor %}
             {% else %}
             <span class='no-likes'>You haven't liked any articles.</span>
-            
+
             {% endif %}
 
 
@@ -33,16 +42,16 @@
     <div>
         <h1>Created Articles</h1>
         <ul>
-            
+
             {% if created %}
             {% for creation in created %}
             <a href="{% url 'article detail' creation.pk creation.slug %}">{{creation.title}}</a>
             {% endfor %}
-            
+
             {% else %}
             <span class='no-likes'>You haven't created any articles.</span>
             {% endif %}
-                
+
         </ul>
     </div>
 

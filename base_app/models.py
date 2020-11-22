@@ -14,16 +14,21 @@ from django.utils.timezone import now
 from ckeditor.fields import RichTextField
 from django.utils.text import slugify
 from django.urls import reverse
+
+
 class Article(Model):
     author = ForeignKey(User, on_delete=CASCADE)
     title = CharField(max_length=30, unique=True, blank=False)
     subtitle = CharField(max_length=100, blank=False)
     category = CharField(max_length=20, blank=False)
     # content = TextField(blank=False)
-    slug = SlugField(max_length=100, default='')
+    slug = SlugField(max_length=100, default="")
     content = RichTextField(blank=True, null=True)
     date = DateTimeField(default=now)
-    cover = ImageField(upload_to="article-covers", null=True, default='cover-default.jpg')
+    cover = ImageField(
+        upload_to="article-covers", null=True, default="cover-default.jpg"
+    )
+
     def __str__(self) -> str:
         return self.title
 
@@ -41,6 +46,7 @@ class Article(Model):
 class Profile(Model):
     user = OneToOneField(User, on_delete=CASCADE, unique=True, primary_key=True)
     profile_pic = ImageField(upload_to="profile_pics", default="default.png")
+
     def __str__(self) -> str:
         return f"{self.user.username} Profile"
 

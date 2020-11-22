@@ -1,7 +1,7 @@
 from base_app.models import Article
 from django import forms
 from django.contrib.auth import authenticate
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserChangeForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
@@ -89,7 +89,8 @@ class RegisterForm(UserCreationForm):
         except User.DoesNotExist:
             return email
         raise ValidationError("- This email address is already in use.")
-
+    
+    
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
@@ -119,6 +120,42 @@ class LoginForm(AuthenticationForm):
             if self.user_cache is None:
                 raise ValidationError("- Invalid Password")
             return password
+
+class UserUpdateForm(UserChangeForm):
+    first_name = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "First Name",
+            }
+        ),
+    )
+    last_name = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Last Name",
+            }
+        ),
+    )
+    username = forms.CharField(error_messages={'unique':'- This username is already in use.'},
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Username",
+            }
+        ),
+        validators=(UsernameMinMaxLengthValidator,),
+    )
+
+
+    class Meta:
+        model = User
+        fields = [
+            "first_name",
+            "last_name",
+            "username",
+        ]
 
 
 class CreateArticleForm(forms.ModelForm):

@@ -3,9 +3,9 @@ from django.http.response import HttpResponseForbidden, HttpResponseRedirect
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from base_app.models import Article, Like
-from django.urls.base import reverse_lazy
-from base_app.forms import CreateArticleForm, LoginForm, RegisterForm
-from django.shortcuts import get_object_or_404, redirect
+from django.urls.base import reverse, reverse_lazy
+from base_app.forms import CreateArticleForm, LoginForm, RegisterForm, UserUpdateForm
+from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -60,6 +60,9 @@ class UserProfileView(LoginRequiredMixin, DetailView):
     template_name = "profile.html"
     slug_field = "username"
 
+    def get_object(self):
+        return self.request.user
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["liked"] = Like.objects.all().filter(user=self.request.user)
@@ -67,8 +70,19 @@ class UserProfileView(LoginRequiredMixin, DetailView):
         return context
 
 
-class UserProfileEditView(LoginRequiredMixin, DetailView):
-    pass
+class UserProfileEditView(LoginRequiredMixin, UpdateView):
+    model = User
+    template_name = "profile-edit.html"
+    form_class = UserUpdateForm
+
+    def get_object(self):
+        return self.request.user
+
+    def form_valid(self, form):
+        form.save()
+        return HttpResponseRedirect(
+            reverse("profile page", kwargs={"slug": self.get_object()})
+        )
 
 
 class CreateArticleView(LoginRequiredMixin, CreateView):
