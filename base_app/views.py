@@ -58,7 +58,6 @@ class LogoutPageView(LoginRequiredMixin, LogoutView):
 class UserProfileView(LoginRequiredMixin, DetailView):
     model = User
     template_name = "profile.html"
-    slug_field = "username"
 
     def get_object(self):
         return self.request.user
@@ -80,9 +79,7 @@ class UserProfileEditView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         form.save()
-        return HttpResponseRedirect(
-            reverse("profile page", kwargs={"slug": self.get_object()})
-        )
+        return HttpResponseRedirect(reverse_lazy("profile page"))
 
 
 class CreateArticleView(LoginRequiredMixin, CreateView):

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-{{object.username}}'s Profile
+My Profile
 {% endblock title %}
 
 
@@ -9,7 +9,7 @@
 {% include 'nav.html' %}
 
 <h1 class="profile-h1">{{object.username}}'s Profile ({{object.first_name}} {{object.last_name}})
-    <form action="{% url 'profile edit' user %}" method="get">
+    <form action="{% url 'profile edit'%}" method="get">
         <button class='like-button profile'>
           <a><i class="fa fa-edit "></i></a> 
         </button>
