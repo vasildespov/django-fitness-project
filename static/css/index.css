@@ -227,6 +227,7 @@ z-index:1000;
 cursor: pointer;
 }
 .brand-img{
+margin-left: 30px;
 height:70px;
 float: left;
 }
@@ -516,4 +517,25 @@ color: #fd4646;
 
 .like-button.profile a:hover{
   color: #fd4646;
+}
+.home-page-header {
+  width:100%; 
+  height: 100%;
+  min-height: 768px; 
+  background-image: url("/static/images/deadlift.jpg");
+  background-size: cover;
+  }
+
+.brand-name{
+  float: left;
+  font-family:'Impact';
+  font-size: large;
+  padding-top:25px;
+}
+
+.home-h1{
+  color: #fff;
+  font-size: 3.5em;
+  padding-top:1em;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
