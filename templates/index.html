@@ -9,8 +9,34 @@ Home Page
 {% include 'nav.html' %}
 <header class='home-page-header'>
     <h1 class='home-h1'>WELCOME TO THE HIGH INTENSITY ZONE WEBSITE</h1>
-</header>
 
+
+    <section id="features">
+        <div class="card">
+          <img id="icon" src="/static/images/book-xxl.png" alt="">
+          <div class="desc">
+            <h2>Blog</h2>
+            <p>Read and create articles.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img id="icon" src="/static/images/food.png">
+          <div class="desc">
+            <h2>Calorie Calculator</h2>
+            <p>Calculate your calories.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img id="icon" src="/static/images/flex.png">
+          <div class="desc">
+            <h2>Sample Workouts</h2>
+            <p>Check out my sample workouts.</p>
+          </div>
+        </div>
+      </section>
+
+
+</header>
 
 
 {% endblock content %}
