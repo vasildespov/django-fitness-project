@@ -104,12 +104,12 @@ class ArticleEditView(LoginRequiredMixin, UpdateView):
     model = Article
     form_class = CreateArticleForm
     template_name = "article-edit.html"
+    query_pk_and_slug = True
 
     def get_object(self):
         return get_object_or_404(
             Article, pk=self.kwargs["pk"], slug=self.kwargs["slug"]
         )
-
     def form_valid(self, form):
         article = form.save(commit=False)
         article.author = User.objects.get(username=self.request.user)

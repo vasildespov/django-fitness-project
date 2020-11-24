@@ -12,8 +12,9 @@ from django.dispatch import receiver
 from django.db.models.fields import SlugField
 from django.utils.timezone import now
 from ckeditor.fields import RichTextField
-from django.utils.text import slugify
+
 from django.urls import reverse
+from transliterate import slugify
 
 
 class Article(Model):
@@ -36,7 +37,7 @@ class Article(Model):
         return self.date.strftime("%B %d, %Y")
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title, allow_unicode=True)
+        self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
