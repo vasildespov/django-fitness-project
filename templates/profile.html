@@ -8,14 +8,26 @@ My Profile
 {% block content %}
 {% include 'nav.html' %}
 
-<h1 class="profile-h1">{{object.username}}'s Profile ({{object.first_name}} {{object.last_name}})
-    <form action="{% url 'profile edit'%}" method="get">
-        <button class='like-button profile'>
-          <a><i class="fa fa-edit "></i></a> 
-        </button>
-    </form>
-</h1>
+    <img class='profile-pic' src="{{userprofile.profile_pic.url}}" alt="">
 
+
+
+<h1 class="profile-h1">{{object.username}}'s Profile ({{object.first_name}} {{object.last_name}})
+    <div class="buttons">
+        <form action="{% url 'profile edit'%}" method="get">
+            <button class='like-button profile'>
+              <a><i class="fa fa-edit "></i></a> 
+            </button>
+        </form>
+        <form action="{% url 'profile pic edit'%}" method="get">
+            <button class='like-button profile'>
+              <a><i class="fas fa-camera"></i></a> 
+            </button>
+        </form>
+    </div>
+    
+    
+</h1>
 
 <div class='profile-wrapper'>
 

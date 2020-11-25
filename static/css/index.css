@@ -520,6 +520,12 @@ color: #fd4646;
 .like-button.profile a:hover{
   color: #fd4646;
 }
+
+.buttons{
+  display: flex;
+  justify-content: center;
+}
+
 .home-page-header {
   width:100%; 
   height: 100%;
@@ -582,3 +588,14 @@ section#features div.desc h2 {
   margin-bottom: 10px;
   color: #bdc3c7;
 }
+
+.profile-pic{
+  height: 300px;
+  width: 300px;
+  border:1px solid black;
+  border-radius: 50%;
+
+  margin-top: 10px;
+}
+
+

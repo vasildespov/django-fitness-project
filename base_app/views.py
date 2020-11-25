@@ -2,9 +2,9 @@ from django.contrib.auth.models import User
 from django.http.response import HttpResponseForbidden, HttpResponseRedirect
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
-from base_app.models import Article, Like
+from base_app.models import Article, Like, Profile
 from django.urls.base import reverse, reverse_lazy
-from base_app.forms import CreateArticleForm, LoginForm, RegisterForm, UserUpdateForm
+from base_app.forms import CreateArticleForm, LoginForm, ProfilePicForm, RegisterForm, UserUpdateForm
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LoginView, LogoutView
@@ -65,6 +65,7 @@ class UserProfileView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["liked"] = Like.objects.all().filter(user=self.request.user)
+        context['userprofile'] = Profile.objects.get(user=self.request.user)
         context["created"] = Article.objects.all().filter(author=self.request.user)
         return context
 
@@ -78,6 +79,18 @@ class UserProfileEditView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
     def form_valid(self, form):
+        form.save()
+        return HttpResponseRedirect(reverse_lazy("profile page"))
+
+class UserProfilePicEditView(LoginRequiredMixin, UpdateView):
+    model = Profile
+    template_name = "profile-pic-edit.html"
+    form_class = ProfilePicForm
+
+    def get_object(self):
+        return Profile.objects.get(user=self.request.user)
+
+    def form_valid(self,form):
         form.save()
         return HttpResponseRedirect(reverse_lazy("profile page"))
 

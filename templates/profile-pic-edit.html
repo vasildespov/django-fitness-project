@@ -3,22 +3,17 @@
 
 
 {% block title %}
-    Edit My Profile
+    Edit My Profile Picture 
 {% endblock title %}
 
 
 
 {% block content %}
     {% include 'nav.html' %}
-    
-
-    <form class='register-form' method="post">
-        <h1>Edit My Profile</h1>
+    <form class='register-form' method="post" action="{% url 'profile pic edit' %}" enctype="multipart/form-data">
+        <h1>Change Photo</h1>
         {% csrf_token %}
-        {{form.first_name}}
-        {{form.last_name}}
-        {{form.username}}
-        {{form.username.errors}}
+        {{form.profile_pic}}
         <button type='submit'>Edit</button>
     </form>
     

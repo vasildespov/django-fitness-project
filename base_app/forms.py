@@ -1,7 +1,12 @@
-from base_app.models import Article
+
+from base_app.models import Article, Profile
 from django import forms
 from django.contrib.auth import authenticate
-from django.contrib.auth.forms import AuthenticationForm, UserChangeForm, UserCreationForm
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    UserChangeForm,
+    UserCreationForm,
+)
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
@@ -89,8 +94,7 @@ class RegisterForm(UserCreationForm):
         except User.DoesNotExist:
             return email
         raise ValidationError("- This email address is already in use.")
-    
-    
+
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
@@ -121,6 +125,7 @@ class LoginForm(AuthenticationForm):
                 raise ValidationError("- Invalid Password")
             return password
 
+
 class UserUpdateForm(UserChangeForm):
     first_name = forms.CharField(
         required=True,
@@ -138,7 +143,8 @@ class UserUpdateForm(UserChangeForm):
             }
         ),
     )
-    username = forms.CharField(error_messages={'unique':'- This username is already in use.'},
+    username = forms.CharField(
+        error_messages={"unique": "- This username is already in use."},
         required=True,
         widget=forms.TextInput(
             attrs={
@@ -148,7 +154,6 @@ class UserUpdateForm(UserChangeForm):
         validators=(UsernameMinMaxLengthValidator,),
     )
 
-
     class Meta:
         model = User
         fields = [
@@ -157,6 +162,18 @@ class UserUpdateForm(UserChangeForm):
             "username",
         ]
 
+
+class ProfilePicForm(forms.ModelForm):
+    class Meta:
+
+        model = Profile
+        fields = ['profile_pic']
+        widgets = {
+            'profile_pic':forms.FileInput(attrs={'placeholder':""})
+        }
+        labels = {
+            'profile_pic':""
+        }
 
 class CreateArticleForm(forms.ModelForm):
     class Meta:

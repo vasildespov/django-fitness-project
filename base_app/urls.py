@@ -1,5 +1,5 @@
 from base_app.forms import UserUpdateForm
-from base_app.views import ArticleDeleteView, ArticleEditView, ArticleDetailView, BlogView, CreateArticleView, HomePageView, LoginPageView, LogoutPageView, RegisterPageView, UserProfileEditView, UserProfileView, like
+from base_app.views import ArticleDeleteView, ArticleEditView, ArticleDetailView, BlogView, CreateArticleView, HomePageView, LoginPageView, LogoutPageView, RegisterPageView, UserProfileEditView, UserProfilePicEditView, UserProfileView, like
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
@@ -12,6 +12,7 @@ urlpatterns = [
     path('logout/', LogoutPageView.as_view(), name='logout'),
     path('my-profile/', UserProfileView.as_view(), name='profile page'),
     path('my-profile/edit/',UserProfileEditView.as_view(), name='profile edit'),
+    path('my-profile/edit/profile-picture/', UserProfilePicEditView.as_view(), name='profile pic edit'),
     path('article/create/', CreateArticleView.as_view(), name='create article'),
     path('article/details/<int:pk>-<slug:slug>/', ArticleDetailView.as_view(), name='article detail'),
     path('article/like/<int:pk>/', like, name='like article'),
