@@ -169,12 +169,8 @@ class ProfilePicForm(forms.ModelForm):
         model = Profile
         fields = ['profile_pic']
         widgets = {
-            'profile_pic':forms.FileInput(attrs={'placeholder':""})
-        }
-        labels = {
-            'profile_pic':""
-        }
-
+            'profile_pic':forms.FileInput(attrs={'onchange':'previewFunc(this)'})
+        }   
 class CreateArticleForm(forms.ModelForm):
     class Meta:
         model = Article

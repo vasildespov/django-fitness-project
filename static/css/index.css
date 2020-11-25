@@ -594,8 +594,19 @@ section#features div.desc h2 {
   width: 300px;
   border:1px solid black;
   border-radius: 50%;
-
   margin-top: 10px;
 }
 
+#preview{
+  height:300px;
+  width: 300px;
+  border:1px solid black;
+  border-radius: 50%;
+  margin-top: 10px;
+}
+
+#previewh2{
+  color: #bdc3c7;
+  font-size: 20px;
+}
 

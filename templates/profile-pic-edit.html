@@ -12,9 +12,11 @@
     {% include 'nav.html' %}
     <form class='register-form' method="post" action="{% url 'profile pic edit' %}" enctype="multipart/form-data">
         <h1>Change Photo</h1>
+        <h2 id="previewh2">Current:</h2>
+        <img id='preview' src="{{object.profile_pic.url}}" alt="">
         {% csrf_token %}
         {{form.profile_pic}}
-        <button type='submit'>Edit</button>
+        <button type='submit'>Save Changes</button>
     </form>
     
 {% endblock content %}
