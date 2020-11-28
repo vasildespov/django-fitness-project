@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Calculator</title>
+</head>
+<body>
+    <h1>Calculate Your Daily Calorie Needs</h1>
+    <form action="", method='post'>
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">Calculate Calories</button>
+    </form>
+    Message: {{result}}
+</body>
+</html>

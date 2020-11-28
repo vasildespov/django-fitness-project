@@ -1,4 +1,3 @@
-
 from base_app.models import Article, Profile
 from django import forms
 from django.contrib.auth import authenticate
@@ -167,10 +166,12 @@ class ProfilePicForm(forms.ModelForm):
     class Meta:
 
         model = Profile
-        fields = ['profile_pic']
+        fields = ["profile_pic"]
         widgets = {
-            'profile_pic':forms.FileInput(attrs={'onchange':'previewFunc(this)'})
-        }   
+            "profile_pic": forms.FileInput(attrs={"onchange": "previewFunc(this)"})
+        }
+
+
 class CreateArticleForm(forms.ModelForm):
     class Meta:
         model = Article
@@ -191,3 +192,29 @@ class CreateArticleForm(forms.ModelForm):
             "category": "",
             "content": "",
         }
+
+
+class UserDataForm(forms.Form):
+    sex_options = (
+        ("","Select Sex"),
+        ("Male", "Male"),
+        ("Female", "Female"),
+    )
+    activity_options = (
+        ("","Select Activity Level"),
+        ("Sedentary", "Sedentary (0 workouts per week)"),
+        ("Moderately Active", "Moderately Active (2-4 workouts per week)"),
+        ("Very Active", "Very Active (5-7 workouts per week)"),
+    )
+    goal_options = (
+        ("","Select a Goal"),
+        ("Maintain", "Maintain Weight"),
+        ("Gain", "Gain Weight"),
+        ("Lose", "Lose Weight"),
+    )
+    sex = forms.ChoiceField(choices=sex_options,required=True)
+    age = forms.IntegerField(required=True)
+    weight_in_kg = forms.IntegerField(required=True)
+    height_in_cm = forms.IntegerField(required=True)
+    activity = forms.ChoiceField(choices=activity_options,required=True,initial=activity_options[0])
+    goal = forms.ChoiceField(choices=goal_options,required=True,initial=goal_options[0])

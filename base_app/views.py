@@ -4,14 +4,20 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from base_app.models import Article, Like, Profile
 from django.urls.base import reverse, reverse_lazy
-from base_app.forms import CreateArticleForm, LoginForm, ProfilePicForm, RegisterForm, UserUpdateForm
-from django.shortcuts import get_object_or_404
+from base_app.forms import (
+    CreateArticleForm,
+    LoginForm,
+    ProfilePicForm,
+    RegisterForm, UserDataForm,
+    UserUpdateForm,
+)
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-
+import math
 
 class HomePageView(TemplateView):
     template_name = "index.html"
@@ -65,7 +71,7 @@ class UserProfileView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["liked"] = Like.objects.all().filter(user=self.request.user)
-        context['userprofile'] = Profile.objects.get(user=self.request.user)
+        context["userprofile"] = Profile.objects.get(user=self.request.user)
         context["created"] = Article.objects.all().filter(author=self.request.user)
         return context
 
@@ -82,6 +88,7 @@ class UserProfileEditView(LoginRequiredMixin, UpdateView):
         form.save()
         return HttpResponseRedirect(reverse_lazy("profile page"))
 
+
 class UserProfilePicEditView(LoginRequiredMixin, UpdateView):
     model = Profile
     template_name = "profile-pic-edit.html"
@@ -90,10 +97,9 @@ class UserProfilePicEditView(LoginRequiredMixin, UpdateView):
     def get_object(self):
         return Profile.objects.get(user=self.request.user)
 
-    def form_valid(self,form):
+    def form_valid(self, form):
         form.save()
         return HttpResponseRedirect(reverse_lazy("profile page"))
-
 
 class CreateArticleView(LoginRequiredMixin, CreateView):
     form_class = CreateArticleForm
@@ -123,6 +129,7 @@ class ArticleEditView(LoginRequiredMixin, UpdateView):
         return get_object_or_404(
             Article, pk=self.kwargs["pk"], slug=self.kwargs["slug"]
         )
+
     def form_valid(self, form):
         article = form.save(commit=False)
         article.author = User.objects.get(username=self.request.user)
@@ -151,3 +158,19 @@ def like(request, pk):
         like = Like(user=user, article=article)
         like.save()
     return HttpResponseRedirect(reverse_lazy("blog"))
+
+
+@login_required
+def calculate(request):
+    result = 0
+    if request.method == 'POST':
+        form = UserDataForm(request.POST)
+        if form.is_valid():
+            result = 'Success!'
+    
+    else:
+        form = UserDataForm()
+
+    return render(request, 'calorie-calc.html', context = {
+        'form': form, 'result':result,
+    })
