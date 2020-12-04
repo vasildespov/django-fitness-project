@@ -6,3 +6,6 @@ def UsernameMinMaxLengthValidator(value):
     elif len(value) < 2:
         raise ValidationError('Username must be 2 or more symbols.')
 
+def WeightHeightNegativeNumberValidator(value):
+    if value <= 0:
+        raise ValidationError('Please enter a valid number!')

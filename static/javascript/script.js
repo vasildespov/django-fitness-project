@@ -45,3 +45,13 @@ function previewFunc(input) {
     reader.readAsDataURL(input.files[0]); // convert to base64 string
   }
 }
+
+$('.card.calculator').click(function(){
+  $(location).attr('href', '/features/calorie-calculator/')
+})
+$('.card.blog').click(function(){
+  $(location).attr('href', '/blog/')
+})
+// $('.card.workouts').click(function(){
+//   $(location).attr('href', '/features/calorie-calculator/')
+// })

@@ -162,15 +162,16 @@ def like(request, pk):
 
 @login_required
 def calculate(request):
-    result = 0
     if request.method == 'POST':
         form = UserDataForm(request.POST)
         if form.is_valid():
             result = 'Success!'
-    
+            return render(request, 'calorie-calc.html', context = {
+                'form': form, 'result':result,
+    })
     else:
         form = UserDataForm()
 
     return render(request, 'calorie-calc.html', context = {
-        'form': form, 'result':result,
+        'form':form
     })

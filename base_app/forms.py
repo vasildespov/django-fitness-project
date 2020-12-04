@@ -1,3 +1,4 @@
+from django.forms.widgets import ChoiceWidget, NumberInput, TextInput
 from base_app.models import Article, Profile
 from django import forms
 from django.contrib.auth import authenticate
@@ -9,7 +10,7 @@ from django.contrib.auth.forms import (
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from base_app.validators import UsernameMinMaxLengthValidator
+from base_app.validators import UsernameMinMaxLengthValidator, WeightHeightNegativeNumberValidator
 
 
 class RegisterForm(UserCreationForm):
@@ -196,25 +197,25 @@ class CreateArticleForm(forms.ModelForm):
 
 class UserDataForm(forms.Form):
     sex_options = (
-        ("","Select Sex"),
+        ("","-"),
         ("Male", "Male"),
         ("Female", "Female"),
     )
     activity_options = (
-        ("","Select Activity Level"),
+        ("","-"),
         ("Sedentary", "Sedentary (0 workouts per week)"),
         ("Moderately Active", "Moderately Active (2-4 workouts per week)"),
         ("Very Active", "Very Active (5-7 workouts per week)"),
     )
     goal_options = (
-        ("","Select a Goal"),
+        ("","-"),
         ("Maintain", "Maintain Weight"),
         ("Gain", "Gain Weight"),
         ("Lose", "Lose Weight"),
     )
     sex = forms.ChoiceField(choices=sex_options,required=True)
-    age = forms.IntegerField(required=True)
-    weight_in_kg = forms.IntegerField(required=True)
-    height_in_cm = forms.IntegerField(required=True)
+    age = forms.IntegerField(required=True,widget=NumberInput(attrs={'placeholder':'Age'}),validators=(WeightHeightNegativeNumberValidator,))
+    weight_in_kg = forms.IntegerField(required=True,widget=NumberInput(attrs={'placeholder':'Weight'}),validators=(WeightHeightNegativeNumberValidator,))
+    height_in_cm = forms.IntegerField(required=True,widget=NumberInput(attrs={'placeholder':'Height'}),validators=(WeightHeightNegativeNumberValidator,))
     activity = forms.ChoiceField(choices=activity_options,required=True,initial=activity_options[0])
     goal = forms.ChoiceField(choices=goal_options,required=True,initial=goal_options[0])

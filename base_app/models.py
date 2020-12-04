@@ -14,8 +14,7 @@ from django.utils.timezone import now
 from ckeditor.fields import RichTextField
 
 from django.urls import reverse
-from transliterate import slugify
-
+from slugify import slugify
 
 class Article(Model):
     author = ForeignKey(User, on_delete=CASCADE)
@@ -23,8 +22,8 @@ class Article(Model):
     subtitle = CharField(max_length=100, blank=False)
     category = CharField(max_length=20, blank=False)
     # content = TextField(blank=False)
-    slug = SlugField(max_length=100, default="")
-    content = RichTextField(blank=True, null=True)
+    slug = SlugField(unique=True)
+    content = RichTextField(blank=False, null=True)
     date = DateTimeField(default=now)
     cover = ImageField(
         upload_to="article-covers", null=True, default="cover-default.jpg"
@@ -38,7 +37,7 @@ class Article(Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
+        super(Article, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("article detail", kwargs={"pk": self.pk, "slug": self.slug})

@@ -1,17 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calorie Calculator</title>
-</head>
-<body>
-    <h1>Calculate Your Daily Calorie Needs</h1>
-    <form action="", method='post'>
-        {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">Calculate Calories</button>
-    </form>
-    Message: {{result}}
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}
+Calorie Calculator
+{% endblock title %}
+
+
+{% block content %}
+{% include 'nav.html' %}
+<h1 id="calculator-h1">Calculate Your Daily Calorie Needs</h1>
+<form class="calc-form" action="{% url 'calculator' %}" method='post'>
+    {% csrf_token %}
+    <table id="form-table">
+        <tbody>
+            {% for field in form %}
+            <tr>
+                <th>{{field.label}}</th>
+                <td>
+                    {{field}}
+                    {% for error in field.errors %}
+                    <p>{{error}}</p>
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+    <button type="submit">Calculate Calories</button>
+</form>
+{{result}}
+
+
+
+{% endblock content %}
