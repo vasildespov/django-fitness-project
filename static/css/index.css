@@ -1,8 +1,11 @@
 body, html {
-  height: auto;
-  width: auto;
-  background: #333;
+  height: 100%;
+  width: 100%;
+  background: black;
   text-align: center;
+  background-image: url('/static/images/12345.jpg');
+  background-size: cover;
+  margin-bottom: 15px;
 }
 
 h1 {
@@ -16,6 +19,7 @@ h1 {
   width: 40%;
   margin-left: 30%;
   padding-top: 5%;
+  height: 100%;
 }
 
 .register-form input {
@@ -29,12 +33,10 @@ h1 {
   padding: 0.5em 0.4em;
   transition: all 0.4s;
   color: #bdc3c7;
-  ;
   margin: 0.7rem 0;
 }
 
 .register-form input:focus {
-  /* background: #7035c4; */
   transform: scale3d(1.06, 1.06, 1.06);
 }
 
@@ -55,7 +57,7 @@ h1 {
 }
 
 .register-form h1 {
-  color: #bdc3c7;
+  color: #fd4646;
   border-bottom: solid 1px #fd4646;
   padding: 0 0 0.8em 0;
   width: 50%;
@@ -239,7 +241,7 @@ nav ul li ul li a {
 }
 
 .blogs-container h1 {
-  color: #bdc3c7;
+  color: #fd4646;
   border-bottom: solid 1px #fd4646;
   padding: 0 0 0.8em 0;
   width: 50%;
@@ -322,7 +324,6 @@ nav ul li ul li a {
   font-size: 0.8rem;
   position: absolute;
   bottom: 0;
-  /* margin:8px; */
   width: 100%;
 }
 
@@ -359,15 +360,21 @@ nav ul li ul li a {
 
 .create-form {
   display: block;
+  margin: 0 auto;
 }
 
 .create-form input {
-  font-size: medium;
-  margin: 0 auto;
-  margin-bottom: 8px;
-  padding: 4px;
-  /* margin: 15px; */
-  width: 300px;
+  width: auto;
+  background: transparent;
+  border-bottom: solid 1px #fd4646;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-size: 1rem;
+  padding: 0.5em 0.4em;
+  transition: all 0.4s;
+  color: #bdc3c7;
+  margin: 0.7rem 0;
 }
 
 .create-form input[type='file'] {
@@ -380,11 +387,23 @@ nav ul li ul li a {
   margin: 0 auto;
   width: 50vw;
   margin-top: 1rem;
+  margin-bottom: 1rem;
   font-size: 1rem;
   border: solid 1px #fd4646;
   padding: 1em 0;
   color: #bdc3c7;
   transition: all 0.6s;
+}
+
+.create-form div {
+  border: none;
+}
+
+@media only screen and (max-width:1000px) {
+  .create-form div {
+    width: 50vw;
+    overflow: hidden;
+  }
 }
 
 .create-form button:hover {
@@ -393,7 +412,7 @@ nav ul li ul li a {
 }
 
 .create-form h1 {
-  color: #bdc3c7;
+  color: #fd4646;
   border-bottom: solid 1px #fd4646;
   padding: 0 0 0.8em 0;
   width: 50%;
@@ -421,7 +440,7 @@ nav ul li ul li a {
 }
 
 .profile-h1 {
-  color: #bdc3c7;
+  color: #fd4646;
   border-bottom: solid 1px #fd4646;
   padding: 0 0 0.8em 0;
   width: 50%;
@@ -465,7 +484,7 @@ nav ul li ul li a {
   position: sticky;
   top: 0;
   z-index: 1;
-  background: #bdc3c7;
+  background: #fd4646;
   color: #333;
   text-align: center;
   border-bottom: 2px #fd4646 solid;
@@ -505,7 +524,7 @@ nav ul li ul li a {
 .like-button {
   border: none;
   float: left;
-  padding: 10px;
+  /* padding: 10px; */
   transition: 0.4s;
 }
 
@@ -556,43 +575,48 @@ nav ul li ul li a {
 }
 
 section#features {
-  padding-top: 80px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  display: block;
   justify-content: center;
 }
 
 section#features div.card {
-  background: rgb(0, 0, 0);
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.6727824919030112) 0%, rgba(253, 70, 70, 0.48230630142682074) 100%);
-  display: flex;
-  flex-direction: column;
+  font-family: 'Impact';
+  margin: 0 auto;
+  display: block;
   align-items: center;
   text-align: center;
-  width: calc(100% / 3);
-  transition: 0.4s;
-  margin-left: 15px;
-  margin-right: 15px;
-  height: 210px;
+  transition: 0.3s;
+  padding: 20px;
+  height: auto;
+  margin-bottom: 10px;
+  width: 60vw;
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.6727824919030112) 0%, rgba(253, 70, 70, 0.48230630142682074) 100%);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  transition: background-size .5s, color .5s;
+}
+
+section#features div.card:hover {
+  background-size: 100% 100%;
+  cursor: pointer;
 }
 
 section#features img {
-  height: 120px;
-}
-
-section#features div.desc {
-  min-width: 180px;
+  height: 80px;
+  padding-top: 10px;
 }
 
 section#features div.desc p {
   color: #bdc3c7;
+  font-size: 1.5rem;
 }
 
 section#features div.desc h2 {
   text-align: center;
-  font-family: "Open Sans", sans-serif;
-  font-size: 22px;
+  font-size: 3rem;
   font-weight: 700;
   letter-spacing: 0.8px;
   margin-bottom: 10px;
@@ -602,26 +626,35 @@ section#features div.desc h2 {
 .profile-pic {
   height: 300px;
   width: 300px;
-  border: 1px solid black;
-  border-radius: 50%;
+  border: 5px solid #fd4646;
+  margin-top: 10px;
+}
+
+#profile-default-icon {
+  height: 300px;
+  font-size: 15rem;
+  background-color: white;
+  padding-top: 15px;
+  width: 300px;
+  border: 5px solid black;
   margin-top: 10px;
 }
 
 #preview {
   height: 300px;
   width: 300px;
-  border: 1px solid black;
-  border-radius: 50%;
+  border: 5px solid black;
   margin-top: 10px;
 }
 
 #previewh2 {
   color: #bdc3c7;
+  font-family: 'Impact';
   font-size: 20px;
 }
 
 #calculator-h1 {
-  color: #bdc3c7;
+  color: #fd4646;
   border-bottom: solid 1px #fd4646;
   padding: 20px 0 0.8em 0;
   width: 50%;
@@ -648,28 +681,21 @@ section#features div.desc h2 {
 
 #form-table {
   margin: 0 auto;
-  background-color: #bdc3c7;
-  height: 300px;
-  width: 500px;
-  border: 0.5px solid #f46f46;
 }
 
 #form-table td {
   display: flex;
-  margin-left: 12px;
+  margin-left: 5px;
+  margin-right: 10px;
   padding: 1px;
-}
-
-#form-table #id_age, #id_weight_in_kg, #id_height_in_cm, #id_sex {
-  width: 80px;
 }
 
 #form-table tbody tr {
   font-family: 'Helvetica';
   position: relative;
   top: 10px;
-  left: 5px;
-  right: 5px;
+  left: 3px;
+  right: 3px;
 }
 
 #form-table td p {
@@ -677,21 +703,13 @@ section#features div.desc h2 {
   font-family: 'Helvetica';
   font-weight: bold;
   color: #fd4646;
-  padding: 4px;
+  padding-top: 2.5em;
 }
 
-.card.calculator:hover {
-  cursor: pointer;
-  transform: scale(1.1);
-  border: 0.5px solid black;
-  transition: 0.4s;
-}
-
-.card.blog:hover {
-  cursor: pointer;
-  transform: scale(1.1);
-  border: 0.5px solid black;
-  transition: 0.4s;
+#form-table th {
+  font-family: 'Impact';
+  color: #bdc3c7;
+  padding-right: 1rem;
 }
 
 @media only screen and (max-width: 800px) {
@@ -706,4 +724,59 @@ section#features div.desc h2 {
 
 .create-form label {
   color: #bdc3c7;
+  display: block;
+}
+
+.cals {
+  float: left;
+  color: #bdc3c7;
+  font-size: large;
+  padding: 10px;
+}
+
+.result {
+  width: 400px;
+  padding-top: 30px;
+  margin: 0 auto;
+}
+
+.result p span {
+  padding: 3px;
+  border: 0.5px solid red;
+}
+
+input {
+  width: auto;
+  background: transparent;
+  border-bottom: solid 1px #fd4646;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-size: 1rem;
+  padding: 0.5em 0.4em;
+  color: #bdc3c7;
+  transition: all 0.4s;
+  margin: 0.7rem 0;
+}
+
+select {
+  width: auto;
+  background: transparent;
+  border-bottom: solid 1px #fd4646;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-size: 1rem;
+  padding: 0.5em 0.4em;
+  color: #bdc3c7;
+  transition: all 0.4s;
+  margin: 0.7rem 0;
+}
+
+select option {
+  background-color: #333;
+}
+
+input:focus {
+  transform: scale3d(1.06, 1.06, 1.06);
 }

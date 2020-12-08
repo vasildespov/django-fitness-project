@@ -159,15 +159,46 @@ def like(request, pk):
         like.save()
     return HttpResponseRedirect(reverse_lazy("blog"))
 
-
+ 
 @login_required
-def calculate(request):
+def calculate(request):     
     if request.method == 'POST':
         form = UserDataForm(request.POST)
         if form.is_valid():
-            result = 'Success!'
+            bmr_male = 66 + (13.7 * form.cleaned_data['weight_in_kg']) + (5 * form.cleaned_data['height_in_cm']) - (6.8 * form.cleaned_data['age'])
+            bmr_female = 655 + (9.6 * form.cleaned_data['weight_in_kg']) + (1.8 * form.cleaned_data['height_in_cm']) - (4.7 * form.cleaned_data['age'])
+            gain = 0
+            maintain = 0
+            lose = 0
+            if form.cleaned_data['sex'] == 'Male':
+                if form.cleaned_data['activity'] == 'Sedentary':
+                    maintain = bmr_male * 1.2
+                    gain = maintain + 300
+                    lose = maintain - 300
+                elif form.cleaned_data['activity'] == 'Moderately Active':
+                    maintain = bmr_male * 1.55
+                    gain = maintain + 300
+                    lose = maintain - 300
+                elif form.cleaned_data['activity'] == 'Very Active':
+                    maintain = bmr_male * 1.725
+                    gain = maintain + 300
+                    lose = maintain - 300
+            elif form.cleaned_data['sex'] == 'Female':
+                if form.cleaned_data['activity'] == 'Sedentary':
+                    maintain = bmr_female * 1.2
+                    gain = maintain + 300
+                    lose = maintain - 300
+                elif form.cleaned_data['activity'] == 'Moderately Active':
+                    maintain = bmr_female * 1.55
+                    gain = maintain + 300
+                    lose = maintain - 300
+                elif form.cleaned_data['activity'] == 'Very Active':
+                    maintain = bmr_female * 1.725
+                    gain = maintain + 300
+                    lose = maintain - 300
+            
             return render(request, 'calorie-calc.html', context = {
-                'form': form, 'result':result,
+                'form': form, 'result':{'lose':math.floor(lose), 'maintain':math.floor(maintain),'gain':math.floor(gain)},
     })
     else:
         form = UserDataForm()

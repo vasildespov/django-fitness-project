@@ -16,11 +16,12 @@ Edit article
     {{form.title.errors}}
     {% csrf_token %}
     {{form.media}}  
-    {{form.title}}
+    <!-- {{form.title}}
     {{form.subtitle}}
     {{form.category}}
     {{form.cover}}
-    {{form.content}}
+    {{form.content}} -->
+    {{form.as_p}}
     <button type="submit">Edit</button>
 </form>
 

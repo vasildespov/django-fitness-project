@@ -8,7 +8,13 @@ My Profile
 {% block content %}
 {% include 'nav.html' %}
 
-    <img class='profile-pic' src="{{userprofile.profile_pic.url}}" alt="">
+    
+    
+    <img class='profile-pic' src="{{userprofile.profile_pic.url}}">
+    
+        
+
+
 
 
 
@@ -16,17 +22,20 @@ My Profile
     <div class="buttons">
         <form action="{% url 'profile edit'%}" method="get">
             <button class='like-button profile'>
-              <a><i class="fa fa-edit "></i></a> 
+                <a><i class="fa fa-edit "></i></a>
+                    
             </button>
+            
         </form>
         <form action="{% url 'profile pic edit'%}" method="get">
             <button class='like-button profile'>
-              <a><i class="fas fa-camera"></i></a> 
+                <a><i class="fas fa-camera"></i></a>
+                
             </button>
         </form>
     </div>
-    
-    
+
+
 </h1>
 
 <div class='profile-wrapper'>

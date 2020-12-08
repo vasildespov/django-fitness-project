@@ -203,19 +203,13 @@ class UserDataForm(forms.Form):
     )
     activity_options = (
         ("","-"),
-        ("Sedentary", "Sedentary (0 workouts per week)"),
-        ("Moderately Active", "Moderately Active (2-4 workouts per week)"),
-        ("Very Active", "Very Active (5-7 workouts per week)"),
+        ("Sedentary", "Exercise/sports 1-3 days/week"),
+        ("Moderately Active", "Hard exercise 3-5 days/week"),
+        ("Very Active", "Hard exercise 5-7 days a week"),
     )
-    goal_options = (
-        ("","-"),
-        ("Maintain", "Maintain Weight"),
-        ("Gain", "Gain Weight"),
-        ("Lose", "Lose Weight"),
-    )
+   
     sex = forms.ChoiceField(choices=sex_options,required=True)
     age = forms.IntegerField(required=True,widget=NumberInput(attrs={'placeholder':'Age'}),validators=(WeightHeightNegativeNumberValidator,))
     weight_in_kg = forms.IntegerField(required=True,widget=NumberInput(attrs={'placeholder':'Weight'}),validators=(WeightHeightNegativeNumberValidator,))
     height_in_cm = forms.IntegerField(required=True,widget=NumberInput(attrs={'placeholder':'Height'}),validators=(WeightHeightNegativeNumberValidator,))
     activity = forms.ChoiceField(choices=activity_options,required=True,initial=activity_options[0])
-    goal = forms.ChoiceField(choices=goal_options,required=True,initial=goal_options[0])

@@ -11,7 +11,9 @@ Calorie Calculator
 <form class="calc-form" action="{% url 'calculator' %}" method='post'>
     {% csrf_token %}
     <table id="form-table">
+        
         <tbody>
+            
             {% for field in form %}
             <tr>
                 <th>{{field.label}}</th>
@@ -21,15 +23,25 @@ Calorie Calculator
                     <p>{{error}}</p>
                     {% endfor %}
                 </td>
+                
             </tr>
+            
             {% endfor %}
+            
         </tbody>
         
     </table>
+    
     <button type="submit">Calculate Calories</button>
+    
+    {% if result %}
+    <div class='result'>
+        <p class='cals'>Calories needed to lose weight: <span>{{result.lose}}</span></p>
+        <p class='cals'>Calories needed to maintain weight: <span>{{result.maintain}}</span></p>
+        <p class='cals'>Calories needed to gain weight: <span>{{result.gain}}</span></p>
+    </div>
+    {% endif %}
 </form>
-{{result}}
 
-
-
+    
 {% endblock content %}

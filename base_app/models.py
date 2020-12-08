@@ -26,7 +26,7 @@ class Article(Model):
     content = RichTextField(blank=False, null=True)
     date = DateTimeField(default=now)
     cover = ImageField(
-        upload_to="article-covers", null=True, default="cover-default.jpg"
+        upload_to="article-covers",default="cover-default.jpg"
     )
 
     def __str__(self) -> str:
@@ -45,7 +45,7 @@ class Article(Model):
 
 class Profile(Model):
     user = OneToOneField(User, on_delete=CASCADE, unique=True, primary_key=True)
-    profile_pic = ImageField(upload_to="profile_pics", default="default.png")
+    profile_pic = ImageField(upload_to="profile_pics",default='default.png')
 
     def __str__(self) -> str:
         return f"{self.user.username} Profile"

@@ -1,22 +1,28 @@
-{% extends 'base.html' %}   
+{% extends 'base.html' %}
 
 
 
 {% block title %}
-    Edit My Profile Picture 
+Edit My Profile Picture
 {% endblock title %}
 
 
 
 {% block content %}
-    {% include 'nav.html' %}
-    <form class='register-form' method="post" action="{% url 'profile pic edit' %}" enctype="multipart/form-data">
-        <h1>Change Photo</h1>
-        <h2 id="previewh2">Current:</h2>
-        <img id='preview' src="{{object.profile_pic.url}}" alt="">
-        {% csrf_token %}
-        {{form.profile_pic}}
-        <button type='submit'>Save Changes</button>
-    </form>
-    
+{% include 'nav.html' %}
+<form class='register-form' method="post" action="{% url 'profile pic edit' %}" enctype="multipart/form-data">
+    <h1>Change Photo</h1>
+    <h2 id="previewh2">Current Photo:</h2>
+
+
+    <img id='preview' src="{{object.profile_pic.url}}" alt="">
+
+
+
+
+    {% csrf_token %}
+    {{form.profile_pic}}
+    <button type='submit'>Save Changes</button>
+</form>
+
 {% endblock content %}

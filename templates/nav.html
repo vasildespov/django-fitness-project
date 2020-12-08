@@ -1,7 +1,7 @@
 <section class="navigation">
   <div class="nav-container">
-      <!-- <img class='brand-img' src="/static/images/navigation_bar_logo.jpg"> -->
-      <img class='brand-img' src="/static/images/newlogo.png" alt="">
+    <!-- <img class='brand-img' src="/static/images/navigation_bar_logo.jpg"> -->
+    <img class='brand-img' src="/static/images/newlogo.png" alt="">
     <nav>
       <div class="nav-mobile">
         <a id="nav-toggle" href="#!"><span></span></a>
@@ -12,15 +12,15 @@
         <li><a href="{% url 'home' %}">Home</a></li>
         <li><a href="{% url 'blog' %}">Blog</a></li>
         <li><a href="{% url 'create article' %}">Create an article</a></li>
-        
-        
+
+
         <li><a class='features-button'>Features</a>
           <ul class="nav-dropdown">
             <li><a href="{% url 'calculator' %}">Calorie Calculator</a></li>
             <li><a href="/">Workout Templates</a></li>
           </ul>
         </li>
-        
+
         <li><a href="{% url 'profile page'%}">My Profile</a></li>
         <li><a href="{% url 'logout' %}">Logout</a></li>
         {% else %}
