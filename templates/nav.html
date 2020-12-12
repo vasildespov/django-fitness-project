@@ -10,14 +10,16 @@
 
         {% if user.is_authenticated %}
         <li><a href="{% url 'home' %}">Home</a></li>
-        <li><a href="{% url 'blog' %}">Blog</a></li>
+
         <li><a href="{% url 'create article' %}">Create an article</a></li>
 
 
         <li><a class='features-button'>Features</a>
           <ul class="nav-dropdown">
+            <li><a href="{% url 'blog' %}">Blog</a></li>
             <li><a href="{% url 'calculator' %}">Calorie Calculator</a></li>
             <li><a href="/">Workout Templates</a></li>
+
           </ul>
         </li>
 
@@ -25,10 +27,10 @@
         <li><a href="{% url 'logout' %}">Logout</a></li>
         {% else %}
         <li><a href="{% url 'home' %}">Home</a></li>
-        <li><a href="{% url 'blog' %}">Blog</a></li>
+
         <li><a class='features-button'>Features</a>
           <ul class="nav-dropdown">
-
+            <li><a href="{% url 'blog' %}">Blog</a></li>
             <li><a href="{% url 'calculator' %}">Calorie Calculator</a></li>
             <li><a href="/">Workout Templates</a></li>
           </ul>

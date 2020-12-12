@@ -8,8 +8,9 @@ Blog
 
 {% block content %}
 {% include 'nav.html' %}
+<h1 class="page-h1">High Intensity Blog</h1>
 <div class="blogs-container">
-  <h1>High Intensity Blog</h1>
+
   {% if object_list %}
   {% for object in object_list%}
 
@@ -33,35 +34,36 @@ Blog
       </button>
     </form>
     {% endif %}
-    
+
     {% if user == object.author or user.is_superuser%}
     <form action="{% url 'article edit' object.pk object.slug %}" method="get">
-      <button class='like-button' >
-        <a><i class="fa fa-edit "></i></a> 
+      <button class='like-button'>
+        <a><i class="fa fa-edit "></i></a>
       </button>
     </form>
     <form action="{% url 'article delete' object.pk %}" method="post">
       {% csrf_token %}
       <button class='like-button'>
-        <a><i class="fa fa-trash" aria-hidden="true"></i>
+        <a><i class="fa fa-trash" aria-hidden="true"> </i>
         </a>
       </button>
     </form>
     {% endif %}
-      
+
     {% endif %}
     <a class='read-article' href="{% url 'article detail' object.pk object.slug %}">Read Full Article</a>
     <figure><img src="{{object.cover.url}}" alt="Your Blog Title" /></figure>
     <div class="blog-content">
       <h3 class="blog-title">{{object.title}}</h3>
       <div class="blog-subtitle">{{object.subtitle}}</div>
-      <div class="blog-footer">Created by {{object.author}} | {{object.datepublished}} | {{object.category}}</div>
+      <div class="blog-footer"><img id='blog-author-photo' src="{{object.author.profile.profile_pic.url}}" alt="">
+        {{object.author}} - {{object.datepublished}} - {{object.category}}</div>
     </div>
   </div>
   {% endfor %}
   {% else %}
-  <h2 class='no-articles'>There are currently no articles.<br><a
-      href="{% url 'create article' %}">Click here</a> to create the first one!</h2>
+  <h2 class='no-articles'>There are currently no articles.<br><a href="{% url 'create article' %}">Click here</a> to
+    create the first one!</h2>
   {% endif %}
 </div>
 {% if is_paginated %}

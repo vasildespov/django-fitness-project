@@ -12,7 +12,7 @@ Edit article
 
 
 <form action="{% url 'article edit' object.pk object.slug %}" class='create-form' method="post" enctype="multipart/form-data">
-    <h1>Edit Article</h1>
+    <h1 class="page-h1">Edit Article</h1>
     {{form.title.errors}}
     {% csrf_token %}
     {{form.media}}  

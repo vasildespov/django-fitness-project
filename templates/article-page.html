@@ -11,7 +11,8 @@
 
 {% include 'nav.html' %}
 <div class="article-details">
-    {{object.title|safe}}
+
+    <h1 class="page-h1">{{object.title|safe}}</h1>
     {{object.content|safe}}
 </div>
 {% endblock content %}

@@ -8,8 +8,9 @@ Create an article
 
 {% block content %}
 {% include 'nav.html' %}
+
+<h1 class="page-h1">Create an Article</h1>
     <form action="{% url 'create article' %}" class='create-form' method="post" enctype="multipart/form-data">
-        <h1>Create an Article</h1>
         {% csrf_token %}
         {{form.as_p}}
         {{form.media}}

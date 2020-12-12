@@ -7,13 +7,13 @@ Calorie Calculator
 
 {% block content %}
 {% include 'nav.html' %}
-<h1 id="calculator-h1">Calculate Your Daily Calorie Needs</h1>
 <form class="calc-form" action="{% url 'calculator' %}" method='post'>
+    <h1 class="page-h1">Calculate Your Daily Calorie Needs</h1>
     {% csrf_token %}
     <table id="form-table">
-        
+
         <tbody>
-            
+
             {% for field in form %}
             <tr>
                 <th>{{field.label}}</th>
@@ -23,17 +23,17 @@ Calorie Calculator
                     <p>{{error}}</p>
                     {% endfor %}
                 </td>
-                
+
             </tr>
-            
+
             {% endfor %}
-            
+
         </tbody>
-        
+
     </table>
-    
+
     <button type="submit">Calculate Calories</button>
-    
+
     {% if result %}
     <div class='result'>
         <p class='cals'>Calories needed to lose weight: <span>{{result.lose}}</span></p>
@@ -43,5 +43,5 @@ Calorie Calculator
     {% endif %}
 </form>
 
-    
+
 {% endblock content %}

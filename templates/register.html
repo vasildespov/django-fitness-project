@@ -10,8 +10,8 @@ Register
 
 {% block content %}
 {% include 'nav.html' %}
-<form class='register-form' method="post">
-    <h1>Register</h1>
+<h1 class="page-h1">Register</h1>
+<form class='base-form' method="post">
     {% csrf_token %}
     {{form.first_name}}
     {{form.last_name}}

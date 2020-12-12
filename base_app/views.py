@@ -38,10 +38,11 @@ class BlogView(ListView):
     template_name = "blog.html"
     model = Article
     ordering = ["-date"]
-    paginate_by = 6
+    paginate_by = 4
 
     def get_context_data(self, **kwargs):
         context = super(BlogView, self).get_context_data(**kwargs)
+        
         if not self.request.user.is_anonymous:
             liked = Like.objects.all().filter(user=self.request.user)
             titles = []

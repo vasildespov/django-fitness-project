@@ -19,11 +19,10 @@ from slugify import slugify
 class Article(Model):
     author = ForeignKey(User, on_delete=CASCADE)
     title = CharField(max_length=30, unique=True, blank=False)
-    subtitle = CharField(max_length=100, blank=False)
+    
     category = CharField(max_length=20, blank=False)
-    # content = TextField(blank=False)
     slug = SlugField(unique=True)
-    content = RichTextField(blank=False, null=True)
+    content = RichTextField(blank=False, null=True, default='Write content here...')
     date = DateTimeField(default=now)
     cover = ImageField(
         upload_to="article-covers",default="cover-default.jpg"
@@ -33,7 +32,7 @@ class Article(Model):
         return self.title
 
     def datepublished(self):
-        return self.date.strftime("%B %d, %Y")
+        return self.date.strftime('%x')
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)

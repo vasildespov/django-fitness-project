@@ -11,18 +11,16 @@ body, html {
 h1 {
   font-family: "Impact";
 }
-
 /* Form Styles */
 
-.register-form {
+.base-form {
   text-align: center;
-  width: 40%;
-  margin-left: 30%;
-  padding-top: 5%;
+  width: 20vw;
+  margin:0 auto;
   height: 100%;
 }
 
-.register-form input {
+.base-form input {
   width: 100%;
   background: transparent;
   border-bottom: solid 1px #fd4646;
@@ -36,11 +34,11 @@ h1 {
   margin: 0.7rem 0;
 }
 
-.register-form input:focus {
+.base-form input:focus {
   transform: scale3d(1.06, 1.06, 1.06);
 }
 
-.register-form button {
+.base-form button {
   background: transparent;
   width: 50%;
   margin-top: 2rem;
@@ -51,29 +49,15 @@ h1 {
   transition: all 0.6s;
 }
 
-.register-form button:hover {
+.base-form button:hover {
   cursor: pointer;
   background: #fd4646;
 }
 
-.register-form h1 {
-  color: #fd4646;
-  border-bottom: solid 1px #fd4646;
-  padding: 0 0 0.8em 0;
-  width: 50%;
-  margin-left: 25%;
-  margin-bottom: 1em;
-  font-size: 2rem;
-}
 
 @media (max-width: 550px) {
-  .register-form {
-    width: 90%;
-    margin-left: 3%;
-    padding-top: 5%;
-  }
-  .register-form input {
-    font-size: 1em;
+  .base-form {
+    width: 50vw;
   }
 }
 
@@ -240,36 +224,25 @@ nav ul li ul li a {
   float: left;
 }
 
-.blogs-container h1 {
-  color: #fd4646;
-  border-bottom: solid 1px #fd4646;
-  padding: 0 0 0.8em 0;
-  width: 50%;
-  margin-left: 25%;
-  margin-top: 0.5em;
-  margin-bottom: 1em;
-  font-size: 2rem;
-}
+
 
 .blogs-container {
-  width: 80%;
-  margin: 0 auto;
   display: flex;
+  flex-direction: row;
+  justify-content: center;
   flex-wrap: wrap;
-  text-align: center;
 }
 
 .blogs-container .blog-card {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 30%;
-  flex: 0 0 30%;
-  max-width: 30%;
-  min-height: 350px;
-  background-color: #f2f5f8;
-  position: relative;
-  padding-bottom: 10px;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  transition: 0.3s;
+  width: 320px;
   margin: 15px;
-  border-radius: 8px;
+  background: rgb(235, 235, 235);
+  border: 1px solid #CB6074;
+  text-align: center;
+  
   overflow: hidden;
   transition: all 0.3s ease 0s;
 }
@@ -307,38 +280,34 @@ nav ul li ul li a {
 .blogs-container .blog-card .blog-content .blog-subtitle {
   font-size: 16px;
   font-family: 'Helvetica';
+  
 }
 
 .blogs-container .blog-card .blog-content .blog-title {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
   border-bottom: solid 1px #fd4646;
-  padding: 0.2em 0 0.2em 0;
+  padding: 0.3em 0 0.3em 0;
   font-family: 'Impact';
   flex-wrap: wrap;
 }
 
 .blogs-container .blog-card .blog-content .blog-footer {
   display: flex;
+  font-size: 0.9rem;
   justify-content: center;
-  font-size: 0.8rem;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+  height: 50px;
+  align-items: center;
+  
 }
-
+.blogs-container .blog-card .blog-content .blog-footer img{
+  margin: 5px;
+}
 .blogs-container .blog-card:hover {
   -webkit-transform: scale(1.015) translateZ(0) perspective(1px);
-  transform: scale(1.015) translateZ(0) perspective(1px);
-  box-shadow: 0 10px 50px -5px rgb(143, 57, 49);
+  transform: scale(1.1) translateZ(0) perspective(1px);
   transition: 0.3s ease-in-out;
-}
-
-@media only screen and (max-width: 800px) {
-  .blogs-container .blog-card {
-    flex: 0 0 44%;
-    max-width: 44%;
-  }
+  background-color: #bdc3c7;
 }
 
 .no-articles {
@@ -411,16 +380,7 @@ nav ul li ul li a {
   background: #fd4646;
 }
 
-.create-form h1 {
-  color: #fd4646;
-  border-bottom: solid 1px #fd4646;
-  padding: 0 0 0.8em 0;
-  width: 50%;
-  margin-left: 25%;
-  margin-bottom: 1em;
-  margin-top: 0.5em;
-  font-size: 2rem;
-}
+
 
 .pagination a {
   color: #fd4646;
@@ -453,6 +413,8 @@ nav ul li ul li a {
 .article-details {
   color: #fff;
   width: 100%;
+  font-size: 30px;
+  align-items: center;
 }
 
 .article-details img {
@@ -524,7 +486,8 @@ nav ul li ul li a {
 .like-button {
   border: none;
   float: left;
-  /* padding: 10px; */
+  background:none;
+  padding: 10px;
   transition: 0.4s;
 }
 
@@ -626,7 +589,6 @@ section#features div.desc h2 {
 .profile-pic {
   height: 300px;
   width: 300px;
-  border: 5px solid #fd4646;
   margin-top: 10px;
 }
 
@@ -653,15 +615,6 @@ section#features div.desc h2 {
   font-size: 20px;
 }
 
-#calculator-h1 {
-  color: #fd4646;
-  border-bottom: solid 1px #fd4646;
-  padding: 20px 0 0.8em 0;
-  width: 50%;
-  margin-left: 25%;
-  margin-bottom: 1em;
-  font-size: 2rem;
-}
 
 .calc-form button {
   background: transparent;
@@ -724,7 +677,7 @@ section#features div.desc h2 {
 
 .create-form label {
   color: #bdc3c7;
-  display: block;
+  font-family: 'Helvetica';
 }
 
 .cals {
@@ -779,4 +732,23 @@ select option {
 
 input:focus {
   transform: scale3d(1.06, 1.06, 1.06);
+}
+
+.page-h1{
+  color: #fd4646;
+  border-bottom: solid 1px #fd4646;
+  padding: 0 0 0.8em 0;
+  width: 50%;
+  margin-left: 25%;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  font-size: 2rem;
+}
+
+#blog-author-photo{
+  height: 40px;
+  width: 40px;
+  border: 1px solid black;
+  border-radius: 50%;
+  
 }
