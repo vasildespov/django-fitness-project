@@ -5,7 +5,7 @@ from django.views.generic.list import ListView
 from base_app.models import Article, Like, Profile
 from django.urls.base import reverse, reverse_lazy
 from base_app.forms import (
-    CreateArticleForm,
+    ChangePasswordForm, CreateArticleForm,
     LoginForm,
     ProfilePicForm,
     RegisterForm, UserDataForm,
@@ -13,7 +13,7 @@ from base_app.forms import (
 )
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import TemplateView
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -147,6 +147,10 @@ class ArticleDeleteView(LoginRequiredMixin, DeleteView):
     model = Article
     success_url = reverse_lazy("blog")
 
+class ChangePasswordView(LoginRequiredMixin, PasswordChangeView):
+    form_class = ChangePasswordForm
+    template_name = 'change-password.html'
+    success_url = reverse_lazy('profile page')
 
 @login_required
 def like(request, pk):
@@ -162,7 +166,8 @@ def like(request, pk):
 
  
 @login_required
-def calculate(request):     
+def calculate(request):
+
     if request.method == 'POST':
         form = UserDataForm(request.POST)
         if form.is_valid():
@@ -207,3 +212,5 @@ def calculate(request):
     return render(request, 'calorie-calc.html', context = {
         'form':form
     })
+
+

@@ -3,7 +3,7 @@ from base_app.models import Article, Profile
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import (
-    AuthenticationForm,
+    AuthenticationForm, PasswordChangeForm,
     UserChangeForm,
     UserCreationForm,
 )
@@ -195,6 +195,16 @@ class CreateArticleForm(forms.ModelForm):
         }
 
 
+class ChangePasswordForm(PasswordChangeForm):
+    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Old Password'}))
+    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'New Password'}))
+    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Repeat New Password'}))
+
+    class Meta:
+        model = User
+        fields = ('old_password', 'new_password1', 'new_password2')
+        labels = {
+        }
 class UserDataForm(forms.Form):
     sex_options = (
         ("","-"),
