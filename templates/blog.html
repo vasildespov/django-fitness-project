@@ -26,7 +26,8 @@ Blog
     <!-- Like and Save here -->
 
     {% if user.is_authenticated %}
-
+    
+    {% if object.author != request.user %}
     {% if object.title in titles %}
     <form action="{% url 'like article' object.pk%}" method="POST">
       {% csrf_token %}
@@ -43,6 +44,9 @@ Blog
     </form>
     {% endif %}
 
+    {% endif %}
+      
+   
     {% if user == object.author or user.is_superuser%}
     <form action="{% url 'article edit' object.pk object.slug %}" method="get">
       <button class='like-button'>

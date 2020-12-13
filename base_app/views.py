@@ -46,7 +46,6 @@ class BlogView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(BlogView, self).get_context_data(**kwargs)
-
         if not self.request.user.is_anonymous:
             liked = Like.objects.all().filter(user=self.request.user)
             titles = []
@@ -54,7 +53,6 @@ class BlogView(ListView):
                 titles.append(item.article.title)
             context["titles"] = titles
         return context
-
 
 class LoginPageView(LoginView):
     template_name = "login.html"
@@ -124,6 +122,15 @@ class ArticleDetailView(DetailView):
     template_name = "article-page.html"
     query_pk_and_slug = True
 
+    def get_context_data(self, **kwargs):
+        context = super(ArticleDetailView, self).get_context_data(**kwargs)
+        if not self.request.user.is_anonymous:
+            liked = Like.objects.all().filter(user=self.request.user)
+            titles = []
+            for item in liked:
+                titles.append(item.article.title)
+            context["titles"] = titles
+        return context
 
 class ArticleEditView(LoginRequiredMixin, UpdateView):
     model = Article

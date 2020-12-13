@@ -2,9 +2,9 @@
 
 
 {% block title %}
-    {{object.title}}
+{{object.title}}
 {% endblock title %}
-    
+
 
 
 {% block content %}
@@ -12,7 +12,46 @@
 {% include 'nav.html' %}
 <div class="article-details">
 
-    <h1 class="page-h1">{{object.title|safe}}</h1>
+
+    <h1 class="page-h1">{{object.title|safe}}
+        
+        {% if user.is_authenticated %}
+            
+        
+            
+        {% if object.author == request.user %}
+        <form action="{% url 'article edit' object.pk object.slug %}" method="get" class="article-page-form">
+            <button>
+                <a><i class="fa fa-edit "></i></a>
+            </button>
+        </form>
+        <form action="{% url 'article delete' object.pk %}" method="post" class="article-page-form">
+            {% csrf_token %}
+            <button>
+                <a><i class="fa fa-trash" aria-hidden="true"> </i>
+                </a>
+            </button>
+        </form>
+        {% else %}
+        {% if object.title in titles %}
+        <form action="{% url 'like article' object.pk%}" method="POST" class="article-page-form">
+            {% csrf_token %}
+            <button class='like-button' type="submit" name="article_pk" value="{{object.pk}}">
+                <a style="color:red;"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>
+            </button>
+        </form>
+        {% else %}
+        <form action="{% url 'like article' object.pk %}" method="POST" class="article-page-form">
+            {% csrf_token %}
+            <button type="submit" name="article_pk" value="{{object.pk}}">
+                <a><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>
+            </button>
+        </form>
+        {% endif %}
+        {% endif %}
+        {% endif %}
+    </h1>
+
     {{object.content|safe}}
 </div>
 {% endblock content %}

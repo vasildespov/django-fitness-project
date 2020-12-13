@@ -26,14 +26,14 @@ $('.brand-img').click(function () {
   $(location).attr("href", "/");
 });
 
-$(window).scroll(function () {
-  sessionStorage.scrollTop = $(this).scrollTop();
-});
-$(document).ready(function () {
-  if (sessionStorage.scrollTop != "undefined") {
-    $(window).scrollTop(sessionStorage.scrollTop);
-  }
-});
+// $(window).scroll(function () {
+//   sessionStorage.scrollTop = $(this).scrollTop();
+// });
+// $(document).ready(function () {
+//   if (sessionStorage.scrollTop != "undefined") {
+//     $(window).scrollTop(sessionStorage.scrollTop);
+//   }
+// });
 function previewFunc(input) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
