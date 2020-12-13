@@ -138,8 +138,9 @@ class ArticleEditView(LoginRequiredMixin, UpdateView):
         return HttpResponseRedirect(reverse_lazy("blog"))
 
     def dispatch(self, *args, **kwargs):
-        if self.request.user != self.get_object().author:
-            return HttpResponseForbidden("You are not the author of this article.")
+        if not self.request.user.is_superuser:
+            if self.request.user != self.get_object().author:
+                return HttpResponseForbidden("You are not the author of this article.")
         return super().dispatch(self.request, *args, **kwargs)
 
 

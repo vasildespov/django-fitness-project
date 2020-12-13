@@ -9,9 +9,14 @@ Blog
 {% block content %}
 {% include 'nav.html' %}
 <h1 class="page-h1">High Intensity Blog</h1>
+<a href="{% url 'create article' %}" id="blog-add-button">
+  <i class="far fa-plus-square"></i>
+  <span> Become An Author</span>
+</a>
 <div class="blogs-container">
 
   {% if object_list %}
+  
   {% for object in object_list%}
 
   <div class="blog-card">

@@ -10,7 +10,7 @@ from django.contrib.auth.forms import (
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from base_app.validators import UsernameMinMaxLengthValidator, WeightHeightNegativeNumberValidator
+from base_app.validators import ChangePasswordValidator, UsernameMinMaxLengthValidator, WeightHeightNegativeNumberValidator
 
 
 class RegisterForm(UserCreationForm):
@@ -68,7 +68,7 @@ class RegisterForm(UserCreationForm):
     def clean_password1(self):
         password1 = self.cleaned_data.get("password1")
         if len(password1) < 8:
-            raise ValidationError("- Password must be between 8 and 20 symbols.")
+            raise ValidationError("Password must be between 8 and 20 symbols.")
         else:
             return password1
 
@@ -76,7 +76,7 @@ class RegisterForm(UserCreationForm):
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
         if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("- Passwords must match.")
+            raise forms.ValidationError("Passwords must match.")
         return password2
 
     def clean_username(self):
@@ -85,7 +85,7 @@ class RegisterForm(UserCreationForm):
             User.objects.get(username=username)
         except User.DoesNotExist:
             return username
-        raise ValidationError("- This username is already in use.")
+        raise ValidationError("This username is already in use.")
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
@@ -93,7 +93,7 @@ class RegisterForm(UserCreationForm):
             User.objects.get(email=email)
         except User.DoesNotExist:
             return email
-        raise ValidationError("- This email address is already in use.")
+        raise ValidationError("This email address is already in use.")
 
 
 class LoginForm(AuthenticationForm):
@@ -112,7 +112,7 @@ class LoginForm(AuthenticationForm):
         data = self.cleaned_data["username"]
         if User.objects.filter(username=data).exists():
             return data
-        raise ValidationError("- Invalid Username.")
+        raise ValidationError("Invalid Username.")
 
     def clean_password(self):
         password = self.cleaned_data.get("password")
@@ -122,7 +122,7 @@ class LoginForm(AuthenticationForm):
                 self.request, username=username, password=password
             )
             if self.user_cache is None:
-                raise ValidationError("- Invalid Password")
+                raise ValidationError("Invalid Password")
             return password
 
 
@@ -197,14 +197,13 @@ class CreateArticleForm(forms.ModelForm):
 
 class ChangePasswordForm(PasswordChangeForm):
     old_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Old Password'}))
-    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'New Password'}))
+    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'New Password'}),validators=(ChangePasswordValidator,))
     new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Repeat New Password'}))
 
     class Meta:
         model = User
         fields = ('old_password', 'new_password1', 'new_password2')
-        labels = {
-        }
+        
 class UserDataForm(forms.Form):
     sex_options = (
         ("","-"),

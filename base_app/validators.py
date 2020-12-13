@@ -9,3 +9,7 @@ def UsernameMinMaxLengthValidator(value):
 def WeightHeightNegativeNumberValidator(value):
     if value <= 0:
         raise ValidationError('Please enter a valid number!')
+
+def ChangePasswordValidator(value):
+    if len(value) < 8  or len(value) > 20:
+        raise ValidationError(f'Password must be between 8 and 20 symbols. Current: {len(value)}')

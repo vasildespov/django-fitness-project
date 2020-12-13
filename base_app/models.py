@@ -18,11 +18,10 @@ from slugify import slugify
 
 class Article(Model):
     author = ForeignKey(User, on_delete=CASCADE)
-    title = CharField(max_length=30, unique=True, blank=False)
-    
+    title = CharField(max_length=100, unique=True, blank=False)
     category = CharField(max_length=20, blank=False)
-    slug = SlugField(unique=True)
-    content = RichTextField(blank=False, null=True, default='Write content here...')
+    slug = SlugField(unique=True,max_length=255)
+    content = RichTextField(blank=False,  default='Write content here...')
     date = DateTimeField(default=now)
     cover = ImageField(
         upload_to="article-covers",default="cover-default.jpg"
