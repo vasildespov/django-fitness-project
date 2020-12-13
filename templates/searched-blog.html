@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Search Results
+{% endblock title %}
+
+
+{% block content %}
+{% include 'nav.html' %}
+<h1 class="page-h1">Search Results for "{{query}}"</h1>
+<div class="blogs-container">
+
+  {% if search_results %}
+
+  {% for search in search_results%}
+
+  <div class="blog-card">
+    <!-- Like and Save here -->
+
+    {% if user.is_authenticated %}
+
+    {% if search.title in titles %}
+    <form action="{% url 'like article' search.pk%}" method="POST">
+      {% csrf_token %}
+      <button class='like-button' type="submit" name="article_pk" value="{{search.pk}}">
+        <a style="color:red;"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>
+      </button>
+    </form>
+    {% else %}
+    <form action="{% url 'like article' search.pk %}" method="POST">
+      {% csrf_token %}
+      <button class='like-button' type="submit" name="article_pk" value="{{search.pk}}">
+        <a><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>
+      </button>
+    </form>
+    {% endif %}
+
+    {% if user == search.author or user.is_superuser%}
+    <form action="{% url 'article edit' search.pk search.slug %}" method="get">
+      <button class='like-button'>
+        <a><i class="fa fa-edit "></i></a>
+      </button>
+    </form>
+    <form action="{% url 'article delete' search.pk %}" method="post">
+      {% csrf_token %}
+      <button class='like-button'>
+        <a><i class="fa fa-trash" aria-hidden="true"> </i>
+        </a>
+      </button>
+    </form>
+    {% endif %}
+
+    {% endif %}
+    <a class='read-article' href="{% url 'article detail' search.pk search.slug %}">Read Full Article</a>
+    <figure><img src="{{search.cover.url}}" alt="Your Blog Title" /></figure>
+    <div class="blog-content">
+      <h3 class="blog-title">{{search.title}}</h3>
+      <div class="blog-subtitle">{{search.subtitle}}</div>
+      <div class="blog-footer"><img id='blog-author-photo' src="{{search.author.profile.profile_pic.url}}" alt="">
+        {{search.author}} - {{search.datepublished}} - {{search.category}}</div>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <h2 class='no-articles'>No matches found<br><a href="{% url 'blog' %}">Click here</a> to
+    return back.</h2>
+  {% endif %}
+</div>
+{% if is_paginated %}
+<div class="pagination">
+  <span class="page-links">
+    {% if page_obj.has_previous %}
+    <a href="/blog?page={{ page_obj.previous_page_number }}">Previous Page</a>
+    {% endif %}
+    <span class="page-current">
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+    {% if page_obj.has_next %}
+    <a href="/blog?page={{ page_obj.next_page_number }}">Next Page</a>
+    {% endif %}
+  </span>
+</div>
+{% endif %}
+
+
+{% endblock content %}

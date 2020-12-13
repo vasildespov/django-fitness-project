@@ -1,14 +1,17 @@
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.http.response import HttpResponseForbidden, HttpResponseRedirect
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from base_app.models import Article, Like, Profile
 from django.urls.base import reverse, reverse_lazy
 from base_app.forms import (
-    ChangePasswordForm, CreateArticleForm,
+    ChangePasswordForm,
+    CreateArticleForm,
     LoginForm,
     ProfilePicForm,
-    RegisterForm, UserDataForm,
+    RegisterForm,
+    UserDataForm,
     UserUpdateForm,
 )
 from django.shortcuts import get_object_or_404, render
@@ -18,6 +21,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 import math
+
 
 class HomePageView(TemplateView):
     template_name = "index.html"
@@ -42,7 +46,7 @@ class BlogView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(BlogView, self).get_context_data(**kwargs)
-        
+
         if not self.request.user.is_anonymous:
             liked = Like.objects.all().filter(user=self.request.user)
             titles = []
@@ -102,6 +106,7 @@ class UserProfilePicEditView(LoginRequiredMixin, UpdateView):
         form.save()
         return HttpResponseRedirect(reverse_lazy("profile page"))
 
+
 class CreateArticleView(LoginRequiredMixin, CreateView):
     form_class = CreateArticleForm
     template_name = "create-article.html"
@@ -148,10 +153,12 @@ class ArticleDeleteView(LoginRequiredMixin, DeleteView):
     model = Article
     success_url = reverse_lazy("blog")
 
+
 class ChangePasswordView(LoginRequiredMixin, PasswordChangeView):
     form_class = ChangePasswordForm
-    template_name = 'change-password.html'
-    success_url = reverse_lazy('profile page')
+    template_name = "change-password.html"
+    success_url = reverse_lazy("profile page")
+
 
 @login_required
 def like(request, pk):
@@ -165,53 +172,97 @@ def like(request, pk):
         like.save()
     return HttpResponseRedirect(reverse_lazy("blog"))
 
- 
+
 @login_required
 def calculate(request):
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = UserDataForm(request.POST)
         if form.is_valid():
-            bmr_male = 66 + (13.7 * form.cleaned_data['weight_in_kg']) + (5 * form.cleaned_data['height_in_cm']) - (6.8 * form.cleaned_data['age'])
-            bmr_female = 655 + (9.6 * form.cleaned_data['weight_in_kg']) + (1.8 * form.cleaned_data['height_in_cm']) - (4.7 * form.cleaned_data['age'])
+            bmr_male = (
+                66
+                + (13.7 * form.cleaned_data["weight_in_kg"])
+                + (5 * form.cleaned_data["height_in_cm"])
+                - (6.8 * form.cleaned_data["age"])
+            )
+            bmr_female = (
+                655
+                + (9.6 * form.cleaned_data["weight_in_kg"])
+                + (1.8 * form.cleaned_data["height_in_cm"])
+                - (4.7 * form.cleaned_data["age"])
+            )
             gain = 0
             maintain = 0
             lose = 0
-            if form.cleaned_data['sex'] == 'Male':
-                if form.cleaned_data['activity'] == 'Sedentary':
+            if form.cleaned_data["sex"] == "Male":
+                if form.cleaned_data["activity"] == "Sedentary":
                     maintain = bmr_male * 1.2
                     gain = maintain + 300
                     lose = maintain - 300
-                elif form.cleaned_data['activity'] == 'Moderately Active':
+                elif form.cleaned_data["activity"] == "Moderately Active":
                     maintain = bmr_male * 1.55
                     gain = maintain + 300
                     lose = maintain - 300
-                elif form.cleaned_data['activity'] == 'Very Active':
+                elif form.cleaned_data["activity"] == "Very Active":
                     maintain = bmr_male * 1.725
                     gain = maintain + 300
                     lose = maintain - 300
-            elif form.cleaned_data['sex'] == 'Female':
-                if form.cleaned_data['activity'] == 'Sedentary':
+            elif form.cleaned_data["sex"] == "Female":
+                if form.cleaned_data["activity"] == "Sedentary":
                     maintain = bmr_female * 1.2
                     gain = maintain + 300
                     lose = maintain - 300
-                elif form.cleaned_data['activity'] == 'Moderately Active':
+                elif form.cleaned_data["activity"] == "Moderately Active":
                     maintain = bmr_female * 1.55
                     gain = maintain + 300
                     lose = maintain - 300
-                elif form.cleaned_data['activity'] == 'Very Active':
+                elif form.cleaned_data["activity"] == "Very Active":
                     maintain = bmr_female * 1.725
                     gain = maintain + 300
                     lose = maintain - 300
-            
-            return render(request, 'calorie-calc.html', context = {
-                'form': form, 'result':{'lose':math.floor(lose), 'maintain':math.floor(maintain),'gain':math.floor(gain)},
-    })
+
+            return render(
+                request,
+                "calorie-calc.html",
+                context={
+                    "form": form,
+                    "result": {
+                        "lose": math.floor(lose),
+                        "maintain": math.floor(maintain),
+                        "gain": math.floor(gain),
+                    },
+                },
+            )
     else:
         form = UserDataForm()
 
-    return render(request, 'calorie-calc.html', context = {
-        'form':form
-    })
+    return render(request, "calorie-calc.html", context={"form": form})
 
 
+class SearchArticlesView(ListView):
+    template_name = "searched-blog.html"
+    model = Article
+    ordering = ["-date"]
+    context_object_name = "search_results"
+    paginate_by = 4
+
+    def get_queryset(self):
+        result = super(SearchArticlesView, self).get_queryset()
+        query = self.request.GET.get("search")
+        if len(query) > 0:
+            found_articles = Article.objects.filter(
+                Q(title__icontains=query)
+            )
+            result = found_articles
+        return result
+
+    def get_context_data(self, **kwargs):
+        context = super(SearchArticlesView, self).get_context_data(**kwargs)
+        context['query'] = self.request.GET.get("search")
+        if not self.request.user.is_anonymous:
+            liked = Like.objects.all().filter(user=self.request.user)
+            titles = []
+            for item in liked:
+                titles.append(item.article.title)
+            context["titles"] = titles
+        return context

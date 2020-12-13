@@ -2,7 +2,14 @@
   <div class="nav-container">
     <!-- <img class='brand-img' src="/static/images/navigation_bar_logo.jpg"> -->
     <img class='brand-img' src="/static/images/newlogo.png" alt="">
+    <form action="{% url 'search' %}" method="get" id="search-form">
+      <input type="search" name="search" id="search-input" required placeholder="Search articles by title..."
+        oninvalid="this.setCustomValidity('Enter at least 1 symbol!')"
+        oninput="this.setCustomValidity('')" />
+      <button id='search-btn' type="submit"><i class="fas fa-search"></i></button>
+    </form>
     <nav>
+
       <div class="nav-mobile">
         <a id="nav-toggle" href="#!"><span></span></a>
       </div>
@@ -11,7 +18,7 @@
         {% if user.is_authenticated %}
         <li><a href="{% url 'home' %}">Home</a></li>
 
-    
+
 
 
         <li><a class='features-button'>Features</a>

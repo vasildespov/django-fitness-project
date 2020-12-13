@@ -815,3 +815,23 @@ input:focus {
   z-index: -1;
   object-fit: cover;
 }
+#search-form{
+  float: left;
+  margin-left: 15px;
+}
+#search-form input{
+  color: #333;
+}
+#search-btn{
+  border: none;
+  background:none;
+  color: #333;
+  font-size: x-large;
+  transition: 0.4s;
+}
+#search-btn:hover{
+  color: #fd4646;
+  cursor: pointer;
+  transition: 0.4s;
+  transform: scale(1.2);
+}
