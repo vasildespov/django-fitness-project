@@ -854,3 +854,22 @@ input:focus {
   cursor: pointer;
   color:#fd4646;
 }
+
+
+#confirm-h1{
+  color: #ffffff;
+  font-size: large;
+}
+#confirm-form button:hover{
+  cursor: pointer;
+}
+#confirm-form{
+  margin: 0 auto;
+  display: inline-block;
+}
+
+
+#back-button a{
+  text-decoration: none;
+  color:#000000;
+}

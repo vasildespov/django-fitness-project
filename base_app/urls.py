@@ -1,5 +1,5 @@
 from base_app.forms import UserUpdateForm
-from base_app.views import ArticleDeleteView, ArticleEditView, ArticleDetailView, BlogView, ChangePasswordView, CreateArticleView, HomePageView, LoginPageView, LogoutPageView, RegisterPageView, SearchArticlesView, UserProfileEditView, UserProfilePicEditView, UserProfileView, calculate, like
+from base_app.views import ArticleDeleteView, ArticleEditView, ArticleDetailView, BlogView, ChangePasswordView, CreateArticleView,  HomePageView, LoginPageView, LogoutPageView, RegisterPageView, SearchArticlesView, UserProfileEditView, UserProfilePicEditView, UserProfileView, calculate, like
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static

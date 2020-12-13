@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Confirm Delete
+{% endblock title %}
+
+
+{% block content %}
+<h1 id="confirm-h1">Are you sure you want to delete this article?</h1>
+<form action="{% url 'article delete' object.pk  %}" method="post" id="confirm-form">
+    {% csrf_token %}
+    <button>
+      <a>Delete
+      </a>
+    </button>
+</form>
+<button id='back-button'>
+    <a href="{% url 'blog' %}">Go Back</a>
+</button>
+
+{% endblock content %}
+    

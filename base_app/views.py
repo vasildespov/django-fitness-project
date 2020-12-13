@@ -54,6 +54,7 @@ class BlogView(ListView):
             context["titles"] = titles
         return context
 
+
 class LoginPageView(LoginView):
     template_name = "login.html"
     authentication_form = LoginForm
@@ -132,6 +133,7 @@ class ArticleDetailView(DetailView):
             context["titles"] = titles
         return context
 
+
 class ArticleEditView(LoginRequiredMixin, UpdateView):
     model = Article
     form_class = CreateArticleForm
@@ -159,7 +161,9 @@ class ArticleEditView(LoginRequiredMixin, UpdateView):
 class ArticleDeleteView(LoginRequiredMixin, DeleteView):
     model = Article
     success_url = reverse_lazy("blog")
-
+    template_name = 'delete-article-confirm.html'
+    
+    
 
 class ChangePasswordView(LoginRequiredMixin, PasswordChangeView):
     form_class = ChangePasswordForm
@@ -257,15 +261,13 @@ class SearchArticlesView(ListView):
         result = super(SearchArticlesView, self).get_queryset()
         query = self.request.GET.get("search")
         if len(query) > 0:
-            found_articles = Article.objects.filter(
-                Q(title__icontains=query)
-            )
+            found_articles = Article.objects.filter(Q(title__icontains=query))
             result = found_articles
         return result
 
     def get_context_data(self, **kwargs):
         context = super(SearchArticlesView, self).get_context_data(**kwargs)
-        context['query'] = self.request.GET.get("search")
+        context["query"] = self.request.GET.get("search")
         if not self.request.user.is_anonymous:
             liked = Like.objects.all().filter(user=self.request.user)
             titles = []
