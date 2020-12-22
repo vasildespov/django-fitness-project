@@ -296,7 +296,7 @@ nav ul li ul li a {
 
 .blogs-container .blog-card .blog-content .blog-footer {
   display: flex;
-  font-size: 0.9rem;
+  font-size: 1rem;
   justify-content: center;
   height: 50px;
   align-items: center;
@@ -551,6 +551,7 @@ nav ul li ul li a {
 
 .home-h1 {
   color: #fff;
+  text-shadow: 0 0 10px #fd4646;
   -webkit-text-stroke: 2px black;
   font-family: 'Verdana';
   font-weight:600;
@@ -863,4 +864,21 @@ input:focus {
 #back-button a {
   text-decoration: none;
   color: #000000;
+}
+
+#pw-change-message{
+  color: #ffffff;
+  font-size: large;
+}
+#register-success-message{
+  color: #ffffff;
+  font-size: large;
+}
+
+#profile-link{
+  text-decoration: none;
+  color: #fd4646;
+}
+#profile-link:hover{
+  text-decoration: underline;
 }

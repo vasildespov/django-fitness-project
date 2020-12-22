@@ -24,16 +24,16 @@ Blog
 </a>
 
 <div class="blogs-container">
-  
+
   {% if object_list %}
-  
+
   {% for object in object_list%}
 
   <div class="blog-card">
     <!-- Like and Save here -->
 
     {% if user.is_authenticated %}
-    
+
     {% if object.author != request.user%}
     {% if object.title in titles %}
     <form action="{% url 'like article' object.pk%}" method="POST">
@@ -52,8 +52,8 @@ Blog
     {% endif %}
 
     {% endif %}
-      
-   
+
+
     {% if user == object.author or user.is_superuser%}
     <form action="{% url 'article edit' object.pk object.slug %}" method="get">
       <button class='like-button'>
@@ -75,7 +75,9 @@ Blog
       <h3 class="blog-title">{{object.title}}</h3>
       <div class="blog-subtitle">{{object.subtitle}}</div>
       <div class="blog-footer"><img id='blog-author-photo' src="{{object.author.profile.profile_pic.url}}" alt="">
-        {{object.author}} - {{object.datepublished}} - {{object.category}}</div>
+        <a id="profile-link" href="{% url 'profile page' object.author %}">{{object.author}}</a>&nbsp;|&nbsp;{{object.datepublished}}&nbsp;|&nbsp;{{object.category}}
+      </div>
+      
     </div>
   </div>
   {% endfor %}

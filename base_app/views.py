@@ -1,3 +1,4 @@
+from django.contrib.auth import logout, update_session_auth_hash
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http.response import HttpResponseForbidden, HttpResponseRedirect
@@ -30,12 +31,16 @@ class HomePageView(TemplateView):
 class RegisterPageView(CreateView):
     template_name = "register.html"
     form_class = RegisterForm
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy("register success")
 
     def dispatch(self, *args, **kwargs):
         if self.request.user.is_authenticated:
             return HttpResponseRedirect(reverse_lazy("home"))
         return super().dispatch(*args, **kwargs)
+
+
+def register_success(request):
+    return render(request, "register-success.html")
 
 
 class BlogView(ListView):
@@ -65,18 +70,16 @@ class LogoutPageView(LoginRequiredMixin, LogoutView):
     pass
 
 
-class UserProfileView(LoginRequiredMixin, DetailView):
+class UserProfileView(DetailView):
     model = User
     template_name = "profile.html"
-
-    def get_object(self):
-        return self.request.user
+    slug_field = "username"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["liked"] = Like.objects.all().filter(user=self.request.user)
-        context["userprofile"] = Profile.objects.get(user=self.request.user)
-        context["created"] = Article.objects.all().filter(author=self.request.user)
+        context["liked"] = Like.objects.all().filter(user=self.object)
+        context["userprofile"] = Profile.objects.get(user=self.object)
+        context["created"] = Article.objects.all().filter(author=self.object)
         return context
 
 
@@ -90,7 +93,7 @@ class UserProfileEditView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         form.save()
-        return HttpResponseRedirect(reverse_lazy("profile page"))
+        return HttpResponseRedirect(reverse("profile page", args={self.get_object()}))
 
 
 class UserProfilePicEditView(LoginRequiredMixin, UpdateView):
@@ -103,7 +106,7 @@ class UserProfilePicEditView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         form.save()
-        return HttpResponseRedirect(reverse_lazy("profile page"))
+        return HttpResponseRedirect(reverse("profile page", args={self.request.user}))
 
 
 class CreateArticleView(LoginRequiredMixin, CreateView):
@@ -167,7 +170,11 @@ class ArticleDeleteView(LoginRequiredMixin, DeleteView):
 class ChangePasswordView(LoginRequiredMixin, PasswordChangeView):
     form_class = ChangePasswordForm
     template_name = "change-password.html"
-    success_url = reverse_lazy("profile page")
+    success_url = reverse_lazy("change password success")
+
+
+def change_password_success(request):
+    return render(request, "change-password-success.html")
 
 
 @login_required
@@ -274,4 +281,3 @@ class SearchArticlesView(ListView):
                 titles.append(item.article.title)
             context["titles"] = titles
         return context
-

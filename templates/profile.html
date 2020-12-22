@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 
 {% block title %}
-My Profile
+
+
+{{object.first_name}} {{object.last_name}}
+
 {% endblock title %}
 
 
@@ -9,27 +12,36 @@ My Profile
 {% include 'nav.html' %}
 <img class='profile-pic' src="{{userprofile.profile_pic.url}}">
 <h1 class="profile-h1">{{object.username}}'s Profile ({{object.first_name}} {{object.last_name}})
+    
+    
+    {% if request.user == object %}
     <div class="buttons">
 
-            <button class='like-button profile'>
-                <a href="{% url 'profile edit'%}"><i class="fa fa-edit "></i></a>
-                <p>Change Username</p>
-            </button>
-       
-        
-            <button class='like-button profile'>
-                <a href="{% url 'profile pic edit'%}"><i class="fas fa-camera"></i></a>
-                <p>Change Photo</p>
-            </button>
-        
-       
-            <button class='like-button profile'>
-                <a href="{% url 'change password' %}"><i class="fa fa-key" aria-hidden="true"></i>
-                </a>
-                <p>Change Password</p>
-            </button>
-            
+        <button class='like-button profile'>
+            <a href="{% url 'profile edit'%}"><i class="fa fa-edit "></i></a>
+            <p>Change Username</p>
+        </button>
+
+
+        <button class='like-button profile'>
+            <a href="{% url 'profile pic edit'%}"><i class="fas fa-camera"></i></a>
+            <p>Change Photo</p>
+        </button>
+
+
+        <button class='like-button profile'>
+            <a href="{% url 'change password' %}"><i class="fa fa-key" aria-hidden="true"></i>
+            </a>
+            <p>Change Password</p>
+        </button>
+
     </div>
+    {% endif %}
+        
+   
+    
+        
+   
 </h1>
 <div class='profile-wrapper'>
     <div>
@@ -40,7 +52,7 @@ My Profile
             <a href="{% url 'article detail' like.article.pk like.article.slug %}">{{like.article.title}}</a>
             {% endfor %}
             {% else %}
-            <span class='no-likes'>You haven't liked any articles.</span>
+            <span class='no-likes'>This section is empty.</span>
             {% endif %}
         </ul>
     </div>
@@ -53,7 +65,7 @@ My Profile
             {% endfor %}
 
             {% else %}
-            <span class='no-likes'>You haven't created any articles.</span>
+            <span class='no-likes'>This section is empty.</span>
             {% endif %}
         </ul>
     </div>

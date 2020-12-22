@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Register Success
+{% endblock title %}
+
+
+{% block content %}
+    <h1 id="register-success-message">Account created successfully. You will be redirected shortly...</h1>
+    <script>
+        function redirect(){
+           window.location.href = "/login/";
+        }
+        setTimeout(redirect, 2000);
+    </script>
+{% endblock content %}
+    
