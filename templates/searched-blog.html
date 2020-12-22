@@ -42,8 +42,7 @@ Search Results
         <a><i class="fa fa-edit "></i></a>
       </button>
     </form>
-    <form action="{% url 'article delete' search.pk %}" method="post">
-      {% csrf_token %}
+    <form action="{% url 'article delete' search.pk %}" method="get">
       <button class='like-button'>
         <a><i class="fa fa-trash" aria-hidden="true"> </i>
         </a>

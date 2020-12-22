@@ -161,9 +161,8 @@ class ArticleEditView(LoginRequiredMixin, UpdateView):
 class ArticleDeleteView(LoginRequiredMixin, DeleteView):
     model = Article
     success_url = reverse_lazy("blog")
-    template_name = 'delete-article-confirm.html'
-    
-    
+    template_name = "delete-article-confirm.html"
+
 
 class ChangePasswordView(LoginRequiredMixin, PasswordChangeView):
     form_class = ChangePasswordForm
@@ -275,3 +274,4 @@ class SearchArticlesView(ListView):
                 titles.append(item.article.title)
             context["titles"] = titles
         return context
+

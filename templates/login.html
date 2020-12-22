@@ -5,21 +5,12 @@
 Login
 {% endblock title %}
 
-
-
-
 {% block content %}
 {% include 'nav.html' %}
 
-
-
-
-
-    
-
 <h1 class="page-h1">Login</h1>
 <form class='base-form' method="post" action="">
-    
+
     {% csrf_token %}
     {{form.username}}
     {{form.username.errors}}
@@ -27,6 +18,5 @@ Login
     {{form.password.errors}}
     <button type='submit'>Login</button>
 </form>
-
 
 {% endblock content %}

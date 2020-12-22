@@ -19,14 +19,13 @@
             
         
             
-        {% if object.author == request.user %}
+        {% if object.author == request.user or request.user.is_superuser %}
         <form action="{% url 'article edit' object.pk object.slug %}" method="get" class="article-page-form">
             <button>
                 <a><i class="fa fa-edit "></i></a>
             </button>
         </form>
-        <form action="{% url 'article delete' object.pk %}" method="post" class="article-page-form">
-            {% csrf_token %}
+        <form action="{% url 'article delete' object.pk %}" method="get" class="article-page-form">
             <button>
                 <a><i class="fa fa-trash" aria-hidden="true"> </i>
                 </a>
@@ -54,4 +53,5 @@
 
     {{object.content|safe}}
 </div>
+
 {% endblock content %}

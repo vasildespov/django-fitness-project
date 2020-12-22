@@ -2,7 +2,7 @@
 
 
 {% block title %}
-Home Page
+High Intensity Zone
 {% endblock title %}
 
 {% block content %}
@@ -10,19 +10,18 @@ Home Page
 {% include 'nav.html' %}
 
 <header class='home-page-header'>
-  <video autoplay muted loop id="video">
-    <source src="/static/video-bg.mp4" type="video/mp4">
-  </video>
-  
-  
-  <h1 class='home-h1'>WELCOME TO THE HIGH INTENSITY ZONE WEBSITE</h1>
+  <div class="header-container">
+    <h1 class="home-h1">
+      WELCOME TO THE HIGH INTENSITY ZONE WEBSITE
+    </h1>
+  </div>
   
   <section id="features">
     <div class="card blog">
       <img id="icon" src="/static/images/book-xxl.png" alt="">
       <div class="desc">
-        <h2>Blog</h2>
-        <p>Read and create articles in the blog.</p>
+        <h2>Informative Blog</h2>
+        <p>Read and create articles on fitness/nutrition/motivation. We must train the brain as well.</p>
       </div>
     </div>
     <div class="card calculator">
@@ -36,12 +35,10 @@ Home Page
       <img id="icon" src="/static/images/flex.png">
       <div class="desc">
         <h2>Sample Workouts</h2>
-        <p>This feature is currently under development and will be available in the near future. Stay tuned.</p>
+        <p>This feature is currently under development and will be available soon.</p>
       </div>
     </div>
-  </section>
-
-
+  </section>  
 </header>
 
 

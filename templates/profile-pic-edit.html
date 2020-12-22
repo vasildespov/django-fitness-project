@@ -5,11 +5,14 @@ Edit Profile Photo
 {% block content %}
 {% include 'nav.html' %}
 <h1 class="page-h1">Change Photo</h1>
-<form class='base-form' method="post" action="{% url 'profile pic edit' %}" enctype="multipart/form-data">
-    <h2 id="previewh2">Current Photo:</h2>
-    <img id='preview' src="{{object.profile_pic.url}}" alt="">
+<h2 id="previewh2">Current Photo:</h2>
+<img id='preview' src="{{object.profile_pic.url}}" alt="">
+
+<form class='base-form' method="post" action="{% url 'profile pic edit' %}" enctype="multipart/form-data">    
     {% csrf_token %}
     {{form.profile_pic}}
-    <button type='submit'>Save Changes</button>
+    <button id="save-changes-btn" type='submit'>Save</button>
+    <a href="{% url 'profile pic edit' %}"><button type='button' id="discard-changes-btn">Discard</button></a>
 </form>
+
 {% endblock content %}

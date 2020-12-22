@@ -52,6 +52,3 @@ $('.card.calculator').click(function(){
 $('.card.blog').click(function(){
   $(location).attr('href', '/blog/')
 })
-// $('.card.workouts').click(function(){
-//   $(location).attr('href', '/features/calorie-calculator/')
-// }) 

@@ -1,3 +1,4 @@
+from django.forms import widgets
 from django.forms.widgets import ChoiceWidget, NumberInput, TextInput
 from base_app.models import Article, Profile
 from django import forms
@@ -189,11 +190,10 @@ class CreateArticleForm(forms.ModelForm):
         }
         labels = {
             "title": "",
-            "subtitle": "",
             "category": "",
             "content": "",
+            "cover":"",
         }
-
 
 class ChangePasswordForm(PasswordChangeForm):
     old_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Old Password'}))

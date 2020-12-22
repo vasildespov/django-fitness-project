@@ -44,7 +44,7 @@ class Article(Model):
 class Profile(Model):
     user = OneToOneField(User, on_delete=CASCADE, unique=True, primary_key=True)
     profile_pic = ImageField(upload_to="profile_pics",default='default.png')
-
+    
     def __str__(self) -> str:
         return f"{self.user.username} Profile"
 

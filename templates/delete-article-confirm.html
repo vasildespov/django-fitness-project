@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Confirm Delete
+Confirm Delete
 {% endblock title %}
 
 
@@ -10,8 +10,8 @@
 <form action="{% url 'article delete' object.pk  %}" method="post" id="confirm-form">
     {% csrf_token %}
     <button>
-      <a>Delete
-      </a>
+        <a>Delete
+        </a>
     </button>
 </form>
 <button id='back-button'>
@@ -19,4 +19,3 @@
 </button>
 
 {% endblock content %}
-    
