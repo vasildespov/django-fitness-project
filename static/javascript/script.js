@@ -50,5 +50,5 @@ $('.card.calculator').click(function(){
   $(location).attr('href', '/features/calorie-calculator/')
 })
 $('.card.blog').click(function(){
-  $(location).attr('href', '/blog/')
+  $(location).attr('href', '/features/blog/')
 })
