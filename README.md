@@ -1,7 +1,8 @@
-# This is my full-stack fitness website. Its features are available only to registered users and they include:
-- Blog where registered users can create/share fitness-related articles.
-- A calorie calculator to help fitness enthusiasts reach their goals.
-- Workout templates which are under development at the moment.
+# Welcome to my High Intensity Zone Website
+This was my project for SoftUni Python Web Framework course.
+
+# How does it work?
+This website is designed mainly for fitness enthusiasts. In the blog, registered users can create and share articles as well as like others. There is also a daily calorie intake calculator available. Another feature that i'm working on is workout routine sharing. 
 
 # Technologies used:
-- Python, Django, HTML5, CSS, JavaScript
+Python, Django, CSS, JavaScript
