@@ -16,22 +16,21 @@ from ckeditor.fields import RichTextField
 from django.urls import reverse
 from slugify import slugify
 
+
 class Article(Model):
     author = ForeignKey(User, on_delete=CASCADE)
     title = CharField(max_length=100, unique=True, blank=False)
     category = CharField(max_length=20, blank=False)
-    slug = SlugField(unique=True,max_length=255)
-    content = RichTextField(blank=False,  default='Write content here...')
+    slug = SlugField(unique=True, max_length=255)
+    content = RichTextField(blank=False, default="Write content here...")
     date = DateTimeField(default=now)
-    cover = ImageField(
-        upload_to="article-covers",default="cover-default.jpg"
-    )
+    cover = ImageField(upload_to="article-covers", default="cover-default.jpg")
 
     def __str__(self) -> str:
         return self.title
 
     def datepublished(self):
-        return self.date.strftime('%x')
+        return self.date.strftime("%x")
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -43,11 +42,12 @@ class Article(Model):
 
 class Profile(Model):
     user = OneToOneField(User, on_delete=CASCADE, unique=True, primary_key=True)
-   
-    profile_pic = ImageField(upload_to="profile_pics",default='default.png')
+
+    profile_pic = ImageField(upload_to="profile_pics", default="default.png")
+
     def __str__(self) -> str:
         return f"{self.user.username} Profile"
-   
+
 
 class Like(Model):
     user = ForeignKey(User, on_delete=CASCADE)

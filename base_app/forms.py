@@ -4,14 +4,19 @@ from base_app.models import Article, Profile
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import (
-    AuthenticationForm, PasswordChangeForm,
+    AuthenticationForm,
+    PasswordChangeForm,
     UserChangeForm,
     UserCreationForm,
 )
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from base_app.validators import ChangePasswordValidator, UsernameMinMaxLengthValidator, WeightHeightNegativeNumberValidator
+from base_app.validators import (
+    ChangePasswordValidator,
+    UsernameMinMaxLengthValidator,
+    WeightHeightNegativeNumberValidator,
+)
 
 
 class RegisterForm(UserCreationForm):
@@ -192,33 +197,56 @@ class CreateArticleForm(forms.ModelForm):
             "title": "",
             "category": "",
             "content": "",
-            "cover":"",
+            "cover": "",
         }
 
+
 class ChangePasswordForm(PasswordChangeForm):
-    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Old Password'}))
-    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'New Password'}),validators=(ChangePasswordValidator,))
-    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Repeat New Password'}))
+    old_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Old Password"})
+    )
+    new_password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "New Password"}),
+        validators=(ChangePasswordValidator,),
+    )
+    new_password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Repeat New Password"})
+    )
 
     class Meta:
         model = User
-        fields = ('old_password', 'new_password1', 'new_password2')
-        
+        fields = ("old_password", "new_password1", "new_password2")
+
+
 class UserDataForm(forms.Form):
     sex_options = (
-        ("","-"),
+        ("", "-"),
         ("Male", "Male"),
         ("Female", "Female"),
     )
     activity_options = (
-        ("","-"),
+        ("", "-"),
         ("Sedentary", "Exercise/sports 1-3 days/week"),
         ("Moderately Active", "Hard exercise 3-5 days/week"),
         ("Very Active", "Hard exercise 5-7 days a week"),
     )
-   
-    sex = forms.ChoiceField(choices=sex_options,required=True)
-    age = forms.IntegerField(required=True,widget=NumberInput(attrs={'placeholder':'Age'}),validators=(WeightHeightNegativeNumberValidator,))
-    weight_in_kg = forms.IntegerField(required=True,widget=NumberInput(attrs={'placeholder':'Weight'}),validators=(WeightHeightNegativeNumberValidator,))
-    height_in_cm = forms.IntegerField(required=True,widget=NumberInput(attrs={'placeholder':'Height'}),validators=(WeightHeightNegativeNumberValidator,))
-    activity = forms.ChoiceField(choices=activity_options,required=True,initial=activity_options[0])
+
+    sex = forms.ChoiceField(choices=sex_options, required=True)
+    age = forms.IntegerField(
+        required=True,
+        widget=NumberInput(attrs={"placeholder": "Age"}),
+        validators=(WeightHeightNegativeNumberValidator,),
+    )
+    weight_in_kg = forms.IntegerField(
+        required=True,
+        widget=NumberInput(attrs={"placeholder": "Weight"}),
+        validators=(WeightHeightNegativeNumberValidator,),
+    )
+    height_in_cm = forms.IntegerField(
+        required=True,
+        widget=NumberInput(attrs={"placeholder": "Height"}),
+        validators=(WeightHeightNegativeNumberValidator,),
+    )
+    activity = forms.ChoiceField(
+        choices=activity_options, required=True, initial=activity_options[0]
+    )
