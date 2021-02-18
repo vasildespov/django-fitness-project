@@ -12,8 +12,8 @@
 {% include 'nav.html' %}
 <img class='profile-pic' src="{{userprofile.profile_pic.url}}">
 <h1 class="profile-h1">{{object.username}}'s Profile ({{object.first_name}} {{object.last_name}})
-    
-    
+
+
     {% if request.user == object %}
     <div class="buttons">
 
@@ -37,11 +37,11 @@
 
     </div>
     {% endif %}
-        
-   
-    
-        
-   
+
+
+
+
+
 </h1>
 <div class='profile-wrapper'>
     <div>

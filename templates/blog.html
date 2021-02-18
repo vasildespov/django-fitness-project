@@ -75,9 +75,10 @@ Blog
       <h3 class="blog-title">{{object.title}}</h3>
       <div class="blog-subtitle">{{object.subtitle}}</div>
       <div class="blog-footer"><img id='blog-author-photo' src="{{object.author.profile.profile_pic.url}}" alt="">
-        <a id="profile-link" href="{% url 'profile page' object.author %}">{{object.author}}</a>&nbsp;|&nbsp;{{object.datepublished}}&nbsp;|&nbsp;{{object.category}}
+        <a id="profile-link"
+          href="{% url 'profile page' object.author %}">{{object.author}}</a>&nbsp;|&nbsp;{{object.datepublished}}&nbsp;|&nbsp;{{object.category}}
       </div>
-      
+
     </div>
   </div>
   {% endfor %}

@@ -14,11 +14,11 @@
 
 
     <h1 class="page-h1">{{object.title|safe}}
-        
+
         {% if user.is_authenticated %}
-            
-        
-            
+
+
+
         {% if object.author == request.user or request.user.is_superuser %}
         <form action="{% url 'article edit' object.pk object.slug %}" method="get" class="article-page-form">
             <button>

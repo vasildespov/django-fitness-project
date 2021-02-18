@@ -8,7 +8,7 @@ Edit Profile Photo
 <h2 id="previewh2">Current Photo:</h2>
 <img id='preview' src="{{object.profile_pic.url}}" alt="">
 
-<form class='base-form' method="post" action="{% url 'profile pic edit' %}" enctype="multipart/form-data">    
+<form class='base-form' method="post" action="{% url 'profile pic edit' %}" enctype="multipart/form-data">
     {% csrf_token %}
     {{form.profile_pic}}
     <button id="save-changes-btn" type='submit'>Save</button>
