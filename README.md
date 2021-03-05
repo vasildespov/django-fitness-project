@@ -9,3 +9,12 @@ Python, Django, CSS, JavaScript
 
 # Todo:
 Update css; implement flexbox; fix responsiveness;
+
+
+```
+python -m venv venv
+source venv/Scripts/activate
+pip install -r requirements.txt
+set up db credentials
+
+``` 
