@@ -6,3 +6,6 @@ This website is designed mainly for fitness enthusiasts. In the blog, registered
 
 # Technologies used:
 Python, Django, CSS, JavaScript
+
+# Todo:
+Update css; implement flexbox; fix responsiveness;

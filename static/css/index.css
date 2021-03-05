@@ -568,10 +568,12 @@ nav ul li ul li a {
 
 section#features {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
 }
-
+@media all and (max-width:600px){
+  section#features{
+    flex-direction: column;
+  }
+}
 section#features div.card {
   font-family: "Impact";
   margin: 0 auto;
